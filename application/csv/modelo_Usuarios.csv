@@ -1,0 +1,5 @@
+matricula,nome,nome_social,data_de_nascimento,login,senha,email,id_curso,turma,ano_de_ingresso,papel,telefone,ativo
+2564,Aluno exemplo,,,aluno,123456,,,,,aluno,,1
+64653,Professor exemplo,,,prof,123456,,,,,professor,,1
+5542,CAEG exemplo,,,caeg,123456,,,,,caeg,,1
+416313,Administrador exemplo,,,adm,123456,,,,,administrador,,1
