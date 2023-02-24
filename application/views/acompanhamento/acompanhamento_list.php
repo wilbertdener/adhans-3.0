@@ -751,11 +751,11 @@ input[type=file]::file-selector-button:hover {
                     <div class = "modal-content">
                         
                         <div class="modal-header no-bd">
-                            <h5 class="modal-title" id="modalHistorico">
+                            <h1 class="modal-title" id="modalHistorico">
                                 <span class="fw-mediumbold">
                                 Histórico</span> 
                                 
-                            </h5>
+                            </h1>
                             
                             <button type="button" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close" onclick="reload()" >
                                 <span aria-hidden="true" >&times;</span>
@@ -767,16 +767,16 @@ input[type=file]::file-selector-button:hover {
                     
                         <div class="modal-body">
 
-                            <p></p>
-                            
                             <div class="timeline">
                                 <div class="container left">
                                     <div class="content">
                                         <div class="tracking-item">
                                             <div class="row">
+
                                                 <div class="col-md-2">
                                                     <img id="myImg1" src="/adhans/application/views/acompanhamento/imagens/a (2).jpg" style="width: 10rem;" alt="Snow" style="float: left;  margin: 0 15px 0 0;">
                                                 </div>
+
                                                 <div class="col-md-10">
 
                                                     <a title="Exibir minha ficha" class="tracking-icon status-intransit" data-toggle="collapse" data-target="#detail0">
@@ -795,12 +795,14 @@ input[type=file]::file-selector-button:hover {
                                                     <img class="modal-content" id="img01">
                                                     <div id="caption"></div>
                                                 </div>
+
                                                 <div class="card collapse border-left-info" id="detail0">
                                                     <div class="card-header">Comentários</div>
                                                     <div class="card-body">
                                                         <ul>* Realizado teste de hiostamina endogena na area suspeita. *</ul>    
                                                     </div>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                         
