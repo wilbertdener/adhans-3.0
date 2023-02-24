@@ -104,7 +104,7 @@ input[type=file]::file-selector-button:hover {
                                                 
                                                 <div class="d-flex justify-content-around">
                                                     
-                                                    <button data-toggle="modal" data-target="#modalUpLoadEndo" data-id="<?php echo $pac->cod?>" class="btn btn-light">
+                                                    <button data-toggle="modal" data-target="#modalUpLoadEndo" data-id="<?php echo $pac->cod?>" class="btn btn-light" onclick="setid(<?php echo $pac->cod?>)">
                                                         <a href="#" onclick="">
                                                         <i class="fa-sharp fa-solid fa-heading" title="Teste da histamina endogena" style="color:#7927A5!important" ></i>
                                                         </a>
@@ -1288,4 +1288,11 @@ function addNewDoc(){
             return true;
         }
     }
+
+    function setid(id){
+
+        <?php $pac->cod?>
+    }
+
+
 </script>
