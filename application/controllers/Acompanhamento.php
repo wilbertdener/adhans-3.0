@@ -71,7 +71,6 @@ class Acompanhamento extends CI_Controller {
 
         $this->acompanhamento_model->update_user($nome,$data,$cod,$newcod);
     }
-
     
     public function addNewDocument($extension, $name, $quest='0', $folder='uploads'){
         //$this->output->set_output($name);
