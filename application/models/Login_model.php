@@ -103,4 +103,21 @@ class Login_model extends CI_Model {
 
     }
 
+    public function logo(){
+
+        
+        $dados = NULL;
+
+        $this->db->from('imgs');
+       
+        $this->db->where('id', '20');
+        
+        $this->db->select('imgs.local as local, imgs.nome as nome');
+
+        
+        $dados = $this->db->get()->result();
+        return $dados;
+        
+    }
+
 }

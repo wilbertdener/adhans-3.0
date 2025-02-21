@@ -2,7 +2,7 @@
     /* Set a background image by replacing the URL below */
     body {
       /*background: url(<?php //echo base_url('dist/img/login_bg.jpeg') ?>) no-repeat center center fixed;*/
-      background-color: #792796;
+      background-color: #B319D0;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       background-size: cover;
@@ -24,8 +24,13 @@
               <!-- Nested Row within Card Body -->
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">ADHans </h1>
+                    <h1 class="h4 text-gray-900 mb-4" style="color: #B319D0; font-size: 60px; font-family: Bookman Old Style, sans-serif;">ADHans </h1>
                   </div>
+                  
+                  <div class="text-center">
+                  <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src= <?php echo '/adhans/img/logo.bmp' ?> alt="...">
+                  </div>
+
 
                   <?php if(isset($alerta)){ ?>
                     <div class="alert alert-<?php echo $alerta['class']; ?>">
@@ -50,13 +55,13 @@
                     </div>
 
                     <div class="form-group" >
-                      <button style = "background:#792796!important; border-color:#792796!important" type="submit" name="entrar" value="entrar" class="btn btn-primary btn-user btn-block" >Entrar</button>
+                      <button style = "background:#B319D0!important; border-color:#B319D0!important" type="submit" name="entrar" value="entrar" class="btn btn-primary btn-user btn-block" >Entrar</button>
                     </div>
                   </form>
                   
                   <hr>
                   <div class="text-center">
-                    <a class="small" style = "color:#792796"href="<?php echo base_url('login/forgot'); ?>">Esqueceu sua senha?</a>
+                    <a class="small" style = "color:#B319D0"href="<?php echo base_url('login/forgot'); ?>">Esqueceu sua senha?</a>
                   </div>
                 </div>
           </div>
