@@ -12,14 +12,13 @@ class Dashboard extends CI_Controller {
     
     public function index(){
         
-        $role = $this->session->userdata();
-        $data['perfil'] =$role ;
+        $role = $this->session->userdata('role');
+        $data['role'] =$role ;
         
         $this->load->view('includes/html_header');
-        
-        $this->load->view('dashboard/dashboard.php',$data);
+        $this->load->view('topbar/admin_topbar.php');
+        $this->load->view('dashboard/admin_dashboard.php');
         $this->load->view('includes/html_footer_full.php');
-        
             
           
 

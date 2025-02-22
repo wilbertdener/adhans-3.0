@@ -24,7 +24,7 @@
               <!-- Nested Row within Card Body -->
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4" style="color: #B319D0; font-size: 60px; font-family: Bookman Old Style, sans-serif;">ADHans </h1>
+                    <h1 class="h4 text-gray-900 mb-4" style="color: #B319D0; font-size: 60px; font-family: Bookman Old Style, sans-serif; font-weight: bold;">ADHans </h1>
                   </div>
                   
                   <div class="text-center">
@@ -47,12 +47,8 @@
                       <input name="senha" type="password" class="form-control form-control-user" id="senha" placeholder="Senha" required>
                     </div>
 
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck" >
-                        <label class="custom-control-label" for="customCheck">Lembrar senha</label>
-                      </div>
-                    </div>
+                    
+
 
                     <div class="form-group" >
                       <button style = "background:#B319D0!important; border-color:#B319D0!important" type="submit" name="entrar" value="entrar" class="btn btn-primary btn-user btn-block" >Entrar</button>

@@ -1,8 +1,8 @@
 <div class="main-header">
 			
                 
-				<div style="color:white;background:#7927A5!important" class="logo-header " data-background-color="blue" href="<?php echo base_url('dashboard')?>">
-					<a class="card card-pricing" href="<?php echo base_url('dashboard')?>" style="color:white; background:#7927A5!important; text:center; padding: 0px 0px; margin: 0 auto;
+				<div style="color:white;background:#7927A5!important" class="logo-header " data-background-color="blue" href="<?php echo base_url('dashboard_hans')?>">
+					<a class="card card-pricing" href="<?php echo base_url('dashboard_hans')?>" style="color:white; background:#7927A5!important; text:center; padding: 0px 0px; margin: 0 auto;
     vertical-align: middle;" >
 					ADHans
 					</a>

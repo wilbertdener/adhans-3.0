@@ -15,7 +15,7 @@ class Login_model extends CI_Model {
         $this->db->where('ativo', 1);
 
 
-        $this->db->select('usuarios.nome as nome, usuarios.id as id');
+        $this->db->select('usuarios.nome as nome, usuarios.id as id, usuarios.crm as crm');
 
         $result = $this->db->get();
         $row = $result->row();
@@ -25,8 +25,9 @@ class Login_model extends CI_Model {
             $session_data = array(
                 'iduser' => $row->id,
                 'name' => $row->nome,
-                'papel' => $row->papel,
+                'crm' => $row->crm,
             );
+            
             $this->set_session($session_data);
             return 'TRUE';
         }else{
@@ -83,7 +84,7 @@ class Login_model extends CI_Model {
         $sess_data = array(
             'id' => $session_data['iduser'],
             'name' => $session_data['name'],
-            'papel' => $session_data['papel'],
+            'crm' => $session_data['crm'],
             'logged_in' => true
         );
         

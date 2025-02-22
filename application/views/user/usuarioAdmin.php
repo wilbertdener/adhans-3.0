@@ -14,7 +14,7 @@
           <h4 class="page-title">Perfil</h4>
           <ul class="breadcrumbs">
             <li class="nav-home">
-              <a href="<?php echo base_url('dashboard')?>">
+              <a href="<?php echo base_url('dashboard_hans')?>">
               <i class="flaticon-home"></i>
                 &nbspInício
               </a>

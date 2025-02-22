@@ -20,10 +20,11 @@ class Login extends CI_Controller {
 
     public function login_user($alerta = null){
         if($this->input->post('entrar') === 'entrar'){
-            //redirect('dashboard');
+            
 
             $this->form_validation->set_rules('login','LOGIN','required');
             $this->form_validation->set_rules('senha','SENHA','required|min_length[4]|max_length[45]');
+            
 
             if($this->form_validation->run() === TRUE){
                 
@@ -41,6 +42,7 @@ class Login extends CI_Controller {
                         );
                         break;
                     case 'TRUE':
+                        $this->login_model->check_login();
                         redirect('dashboard');
                         break;
                     default:
