@@ -77,4 +77,12 @@
                 </span>
             </div>
 
+            
+            <div class="col-2 col-md-3 d-flex justify-content-center align-items-center" style="display: flex; justify-content: center; align-items: center; ">
+            
+                <i class="fa-solid fa-right-from-bracket"href="<?php echo base_url('tutorial')?>" style="color:#650086;margin-bottom:60px;border-radius: 90px; padding: 10px 20px;width: 90%;font-size: 35px; "></i>
+                
+                
+            </div>
+
         </div>
