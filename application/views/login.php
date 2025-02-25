@@ -56,9 +56,10 @@
                   </form>
                   
                   <hr>
+                  <!--
                   <div class="text-center">
-                    <a class="small" style = "color:#B319D0"href="<?php echo base_url('login/forgot'); ?>">Esqueceu sua senha?</a>
-                  </div>
+                    <a class="small" style = "color:#B319D0"href="<?php #echo base_url('login/forgot'); ?>">Esqueceu sua senha?</a>
+                  </div>-->
                 </div>
           </div>
         </div>

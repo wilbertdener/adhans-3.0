@@ -7,21 +7,35 @@ class Historico extends CI_Controller {
         parent::__construct();
         $this->load->model('login_model');
         $this->load->model('users_model');
+        $this->load->model('historico_model');
         //$this->load->model('faculties_model');
     }
     
     public function index(){
-        
+        #$this->login_model->logout();
         $role = $this->session->userdata();
-        $data['perfil'] =$role ;
-        
-        $this->load->view('includes/html_header');
-        $this->load->view('historico/historico_dashboard.php',$data);
-        $this->load->view('includes/html_footer.php');
-        
+        if($role['logged_in']){
+            $role = $this->session->userdata();
+            $data['exames'] =$this->historico_model->get_exames();
             
-          
-
+            $this->load->view('includes/html_header.php');
+            $this->load->view('historico/historico_dashboard.php',$data);
+            $this->load->view('includes/html_footer.php');
+            
+            
+        }else{
+            redirect('login');
+        }
+         
+    }
+    public function teste(){
+        
+            $this->load->view('historico/teste');
+            
+            
+            
+       
+         
     }
 
 }

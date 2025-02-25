@@ -111,7 +111,7 @@ class Login_model extends CI_Model {
 
         $this->db->from('imgs');
        
-        $this->db->where('id', '20');
+        $this->db->where('id', '1');
         
         $this->db->select('imgs.local as local, imgs.nome as nome');
 
@@ -119,6 +119,13 @@ class Login_model extends CI_Model {
         $dados = $this->db->get()->result();
         return $dados;
         
+    }
+
+    public function logout() {
+        $array_items = array('id_usuario' => '', 'email' => '', 'nome' => '', 'logado' => '');
+        $this->session->unset_userdata($array_items);
+        $this->session->sess_destroy();
+        redirect('login');
     }
 
 }

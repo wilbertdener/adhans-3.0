@@ -10,10 +10,16 @@ class Login extends CI_Controller {
     }
     
     public function index(){
-		$this->load->view('includes/html_header');
-        //
-        $data['logo'] = $this->login_model->logo();
-		$this->load->view('login',$data);
+        $role = $this->session->userdata();
+        if($role['logged_in']){
+            redirect('dashboard');
+        }else{
+            $this->load->view('includes/html_header_login');
+            //
+            $data['logo'] = $this->login_model->logo();
+            $this->load->view('login',$data);
+        }
+        
     }
 
     
@@ -42,7 +48,7 @@ class Login extends CI_Controller {
                         );
                         break;
                     case 'TRUE':
-                        $this->login_model->check_login();
+                        #$this->login_model->check_login();
                         redirect('dashboard');
                         break;
                     default:
@@ -147,4 +153,11 @@ class Login extends CI_Controller {
         $this->load->view('includes/html_header');
         $this->load->view('login');
     } 
+
+    public function logout() {
+        $array_items = array('id_usuario' => '', 'email' => '', 'nome' => '', 'logado' => '');
+        $this->session->unset_userdata($array_items);
+        $this->session->sess_destroy();
+        redirect('login');
+    }
 }

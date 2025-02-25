@@ -11,14 +11,19 @@ class Dashboard extends CI_Controller {
     }
     
     public function index(){
-        
         $role = $this->session->userdata();
-        $data['perfil'] =$role ;
-        
-        $this->load->view('includes/html_header');
-        $this->load->view('dashboard/dashboard.php',$data);
-        $this->load->view('includes/html_footer.php');
-        
+        if($role['logged_in']){
+            $data['perfil'] =$role ;
+            
+            $this->load->view('includes/html_header');
+            $this->load->view('dashboard/dashboard.php',$data);
+            $this->load->view('includes/html_footer.php');
+            #$this->login_model->logout();
+            
+        }else{
+            redirect('login');
+        }
+            
             
           
 

@@ -17,32 +17,7 @@
 
 </style>
 
-<div class="main-panel" style="background-color: #B319D0">
-    <div class="content" >
 
-
-
-        
-
-        <div style="display: flex;  gap: 1rem;padding-left: 1rem;">
-            <div class="flex-md-row">
-                <div class="profile-pic pb-3">
-                    <img src="/adhans/img/fotoperfil/1.jpg" id="foto-perfil-menu" 
-                        style="width: 7rem; height: 7rem; border-radius: 50%; object-fit: cover;">
-                </div>
-            </div>
-
-            <div style="display: flex; flex-direction: column; line-height: 1; gap: 2px;">
-                <span style="color: #ffffff; font-size: 40px; font-family: Bookman Old Style, sans-serif; margin: 0;font-weight: bold;">ADHans</span>
-                <span style="color: #ffffff; font-size: 20px; font-family: Bookman Old Style, sans-serif; margin: 0;">
-                    <?php echo $_SESSION['name']; ?>
-                </span>
-                <span style="color: #ffffff; font-size: 20px; font-family: Bookman Old Style, sans-serif; margin: 0;">
-                    <?php echo $_SESSION['crm']; ?>
-                </span>
-            </div>
-
-        </div>
         
         
 
@@ -86,5 +61,4 @@
         
         </div>
 
-    </div>
-</div>
+    

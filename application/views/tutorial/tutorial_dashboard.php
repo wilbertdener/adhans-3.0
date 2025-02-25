@@ -49,7 +49,7 @@
                 <a class="card card-pricing "  style="background:#650086;margin-bottom:10px;border-radius: 50px; padding: 0px 10px;width: 90%; ">
                     <div class="card-header">
                             
-                            <span class="price " style="color:#FFFFFF; font-size:2rem">Histórico</span>
+                            <span class="price " style="color:#FFFFFF; font-size:2rem">Tutorial</span>
                             
                         
                     </div>
