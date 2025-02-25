@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class Foto extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
@@ -16,7 +16,7 @@ class Dashboard extends CI_Controller {
         $data['perfil'] =$role ;
         
         $this->load->view('includes/html_header');
-        $this->load->view('dashboard/dashboard.php',$data);
+        $this->load->view('enviar_fotos/enviar_foto_dashboard.php',$data);
         $this->load->view('includes/html_footer.php');
         
             

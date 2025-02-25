@@ -20,10 +20,6 @@
 <div class="main-panel" style="background-color: #B319D0">
     <div class="content" >
 
-
-
-        
-
         <div style="display: flex;  gap: 1rem;padding-left: 1rem;">
             <div class="flex-md-row">
                 <div class="profile-pic pb-3">
@@ -47,34 +43,10 @@
         
 
         <div class="row justify-content-center align-items-center mb-1" style="color:#FFFFFF;font-size:250%;" >
-            <div class="col-md-3 pr-md-0" style="display: flex; justify-content: center; align-items: center; height: 20vh;" >
-                                                                                                                                                
-            </div>
-
-            <div class="col-md-3 pr-md-0" style="display: flex; justify-content: center; align-items: center; gap: 1rem;padding-left: 1rem;" >
-                <a class="card card-pricing" href="<?php echo base_url('foto')?>" style="background:#650086;margin-bottom:20px;border-radius: 50px; padding: 10px 20px;width: 90%; ">
-                    <div class="card-header">
-                        <div class="card-price">
-                            <span class="price" style="color:#FFFFFF">Enviar fotos</span>
-                            
-                        </div>
-                    </div>
-                </a>                                                                                                                                
-            </div>
-
-            <div class="col-md-3 pr-md-0" style="display: flex; justify-content: center; align-items: center; gap: 1rem;padding-left: 1rem;" >
-                <a class="card card-pricing" href="<?php echo base_url('tutorial')?>" style="background:#650086;margin-bottom:20px;border-radius: 50px; padding: 10px 20px;width: 90%; ">
-                    <div class="card-header">
-                        <div class="card-price">
-                            <span class="price" style="color:#FFFFFF;">Tutorial</span>
-                            
-                        </div>
-                    </div>
-                </a>
-            </div>
+            
 
             <div class="col-md-3 pr-md-0 " style="display: flex; justify-content: center; align-items: center; gap: 1rem;padding-left: 1rem;">
-                <a class="card card-pricing " href="<?php echo base_url('historico')?>" style="background:#650086;margin-bottom:20px;border-radius: 50px; padding: 10px 20px;width: 90%; ">
+                <a class="card card-pricing "  style="background:#650086;margin-bottom:20px;border-radius: 50px; padding: 10px 20px;width: 90%; ">
                     <div class="card-header">
                             
                             <span class="price " style="color:#FFFFFF;margin: auto; font-size:2rem">Histórico</span>

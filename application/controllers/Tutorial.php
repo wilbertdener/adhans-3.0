@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class Tutorial extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
@@ -12,13 +12,13 @@ class Dashboard extends CI_Controller {
     
     public function index(){
         
-        $role = $this->session->userdata('role');
-        $data['role'] =$role ;
+        $role = $this->session->userdata();
+        $data['perfil'] =$role ;
         
         $this->load->view('includes/html_header');
-        $this->load->view('topbar/admin_topbar.php');
-        $this->load->view('dashboard/admin_dashboard.php');
-        $this->load->view('includes/html_footer_full.php');
+        $this->load->view('tutorial/tutorial_dashboard.php',$data);
+        $this->load->view('includes/html_footer.php');
+        
             
           
 

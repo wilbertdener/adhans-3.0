@@ -52,7 +52,7 @@
             </div>
 
             <div class="col-md-3 pr-md-0" style="display: flex; justify-content: center; align-items: center; gap: 1rem;padding-left: 1rem;" >
-                <a class="card card-pricing" href="<?php echo base_url('foto')?>" style="background:#650086;margin-bottom:20px;border-radius: 50px; padding: 10px 20px;width: 90%; ">
+                <a class="card card-pricing" href="<?php echo base_url('fotos')?>" style="background:#650086;margin-bottom:20px;border-radius: 50px; padding: 10px 20px;width: 90%; ">
                     <div class="card-header">
                         <div class="card-price">
                             <span class="price" style="color:#FFFFFF">Enviar fotos</span>
