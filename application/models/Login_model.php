@@ -83,7 +83,7 @@ class Login_model extends CI_Model {
     public function set_session($session_data){
         $sess_data = array(
             'id' => $session_data['iduser'],
-            'name' => $session_data['name'],
+            'nome' => $session_data['name'],
             'crm' => $session_data['crm'],
             'logged_in' => true
         );

@@ -11,14 +11,19 @@ class Foto extends CI_Controller {
     }
     
     public function index(){
-        
         $role = $this->session->userdata();
-        $data['perfil'] =$role ;
-        
-        $this->load->view('includes/html_header');
-        $this->load->view('enviar_fotos/enviar_foto_dashboard.php',$data);
-        $this->load->view('includes/html_footer.php');
-        
+        if($this->session->userdata('logged_in')){
+            $data['perfil'] =$role ;
+            
+            $this->load->view('includes/html_header');
+            $this->load->view('enviar_foto/enviar_foto_dashboard.php',$data);
+            $this->load->view('includes/html_footer.php');
+            #$this->login_model->logout();
+            
+        }else{
+            redirect('login');
+        }
+            
             
           
 

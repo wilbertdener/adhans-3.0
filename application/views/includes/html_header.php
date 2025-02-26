@@ -45,6 +45,13 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
 
+    
+
+    <script src="<?php echo base_url("assets/bootstrap/js/bootstrap.bundle.min.js"); ?>"></script>
+    <script src="<?php echo base_url("assets/js/sweetalert2.all.min.js"); ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+
 
       <style>
         /* Add in style file. */
@@ -70,7 +77,7 @@
             <div style="display: flex; flex-direction: column; line-height: 1; gap: 2px;">
                 <span style="color: #ffffff; font-size: 40px; font-family: Bookman Old Style, sans-serif; margin: 0;font-weight: bold;">ADHans</span>
                 <span style="color: #ffffff; font-size: 20px; font-family: Bookman Old Style, sans-serif; margin: 0;">
-                    <?php echo $_SESSION['name']; ?>
+                    <?php echo $_SESSION['nome']; ?>
                 </span>
                 <span style="color: #ffffff; font-size: 20px; font-family: Bookman Old Style, sans-serif; margin: 0;">
                     <?php echo $_SESSION['crm']; ?>
@@ -80,9 +87,40 @@
             
             <div class="col-2 col-md-3 d-flex justify-content-center align-items-center" style="display: flex; justify-content: center; align-items: center; ">
             
-                <i class="fa-solid fa-right-from-bracket"href="<?php echo base_url('tutorial')?>" style="color:#650086;margin-bottom:60px;border-radius: 90px; padding: 10px 20px;width: 90%;font-size: 35px; "></i>
+                <i class="fa-solid fa-right-from-bracket" onclick="sair()" style="color:#650086;margin-bottom:60px;border-radius: 90px; padding: 10px 20px;width: 90%;font-size: 35px; "></i>
                 
                 
             </div>
 
         </div>
+
+
+
+        <script src="<?php echo base_url('assets/js/jquery-3.6.4.min.js');?>"></script>
+        <!-- SweetAlert2 CDN -->
+
+
+        <script>
+function sair(){
+  Swal.fire({
+    title:"Atenção", 
+        text:"Certeza que deseja deslogar do sistema?",
+        icon:'info',
+        showCancelButton: true,
+        cancelButtonText: 'Não', 
+        confirmButtonText: 'Sim', 
+        reverseButtons: true, 
+        customClass: {
+            cancelButton: "btn btn-lg btn-outline-secondary me-3",
+            confirmButton: "btn btn-lg btn-primary",
+        },
+        buttonsStyling: false
+    }).then((result) => {
+        
+        if (result.isConfirmed) {
+          window.location.href = "<?php echo base_url('login/logout'); ?>";
+        }
+    });
+  }
+</script>
+

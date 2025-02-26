@@ -12,13 +12,19 @@ class Tutorial extends CI_Controller {
     
     public function index(){
         
-        $role = $this->session->userdata();
-        $data['perfil'] =$role ;
-        
-        $this->load->view('includes/html_header');
-        $this->load->view('tutorial/tutorial_dashboard.php',$data);
-        $this->load->view('includes/html_footer.php');
-        
+        if($this->session->userdata('logged_in')){
+            $role = $this->session->userdata();
+            $data['perfil'] =$role ;
+            
+            $this->load->view('includes/html_header');
+            $this->load->view('tutorial/tutorial_dashboard.php',$data);
+            $this->load->view('includes/html_footer.php');
+            #$this->login_model->logout();
+            
+        }else{
+            redirect('login');
+        }
+            
             
           
 

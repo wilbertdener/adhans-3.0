@@ -10,8 +10,8 @@ class Login extends CI_Controller {
     }
     
     public function index(){
-        $role = $this->session->userdata();
-        if($role['logged_in']){
+                
+        if($this->session->userdata('logged_in')){
             redirect('dashboard');
         }else{
             $this->load->view('includes/html_header_login');
@@ -155,7 +155,8 @@ class Login extends CI_Controller {
     } 
 
     public function logout() {
-        $array_items = array('id_usuario' => '', 'email' => '', 'nome' => '', 'logado' => '');
+        
+        $array_items = array('id' => '', 'nome' => '', 'crm' => '', 'logged_in' => '');
         $this->session->unset_userdata($array_items);
         $this->session->sess_destroy();
         redirect('login');

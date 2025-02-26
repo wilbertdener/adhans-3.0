@@ -12,7 +12,7 @@ class Dashboard extends CI_Controller {
     
     public function index(){
         $role = $this->session->userdata();
-        if($role['logged_in']){
+        if($this->session->userdata('logged_in')){
             $data['perfil'] =$role ;
             
             $this->load->view('includes/html_header');

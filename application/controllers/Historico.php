@@ -13,8 +13,8 @@ class Historico extends CI_Controller {
     
     public function index(){
         #$this->login_model->logout();
-        $role = $this->session->userdata();
-        if($role['logged_in']){
+        
+        if($this->session->userdata('logged_in')){
             $role = $this->session->userdata();
             $data['exames'] =$this->historico_model->get_exames();
             

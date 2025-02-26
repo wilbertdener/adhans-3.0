@@ -27,7 +27,7 @@
     <div class="col-md-3 pr-md-0 " style="display: flex; justify-content: center; align-items: center; ">
         <a class="card card-pricing "  style="background:#650086;margin-bottom:10px;border-radius: 50px; padding: 0px 10px;width: 90%; ">
             <div class="card-header">
-                    
+                    <i class="fa-solid fa-backward" style="color:#B319D0;font-size: 2rem; position: absolute; left: 20px; top: 30px;" onclick="window.location.href='<?php echo base_url('dashboard'); ?>'"></i>
                     <span class="price " style="color:#FFFFFF; font-size:2rem">Histórico</span>
                     
                 
