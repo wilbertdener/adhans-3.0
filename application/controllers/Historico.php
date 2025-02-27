@@ -17,6 +17,9 @@ class Historico extends CI_Controller {
         if($this->session->userdata('logged_in')){
             $role = $this->session->userdata();
             $data['exames'] =$this->historico_model->get_exames();
+            $data['fotos'] =$this->historico_model->get_fotos_by_usuario();
+            
+            
             
             $this->load->view('includes/html_header.php');
             $this->load->view('historico/historico_dashboard.php',$data);

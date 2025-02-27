@@ -36,8 +36,23 @@
     </div>
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?php foreach($exames as $exame){?>
-<div class="row justify-content-center align-items-center mb-1" style="color:#FFFFFF;font-size:250%;" >
+<div class="row justify-content-center align-items-center mb-1" style="color:#FFFFFF;font-size:250%;background:#B319D0" >
 
     <div class="row justify-content-center align-items-center d-flex flex-wrap ">
         <div class="col-1 col-md-3 d-flex justify-content-center align-items-center " style="display: flex; justify-content: center; align-items: center; ">
@@ -59,7 +74,16 @@
         </div>
         <div class="col-2 col-md-3 d-flex justify-content-center align-items-center" style="display: flex; justify-content: center; align-items: center; ">
             
-            <i class="fa-solid fa-camera"style="color:#650086;margin-bottom:20px;border-radius: 50px; padding: 10px 20px;width: 90%; "></i>
+            <i class="fa-solid fa-camera abrirModal"style="color:#650086;margin-bottom:20px;border-radius: 50px; padding: 10px 20px;width: 90%;"
+                
+                data-nome="<?php echo $exame->nome_pac; ?>" 
+                data-data="<?php echo $exame->data; ?>" 
+                data-foto1="<?php echo $exame->id_foto1; ?>" 
+                data-foto2="<?php echo $exame->id_foto2; ?>" 
+                data-bs-toggle="modal" 
+                data-bs-target="#meuModal"
+               
+            ></i>
             
             
         </div>
@@ -68,15 +92,61 @@
     
     
 
-    <div class="row justify-content-center align-items-center d-flex flex-wrap "> 
+    <div class="row justify-content-center align-items-center d-flex flex-wrap " style="background:#B319D0"> 
         <br>
         <div style="width: 100%; height: 2px; background-color: white;width: 80%;"></div>
     </div>
 
 </div>
 <?php }?>
-       
-        
-        
+ 
+<!-- Modal único -->
+<div class="modal fade" id="meuModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background:#B319D0">
+                <h5 class="modal-title" id="modalTitulo"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalData"></p>
+                <p >Foto Antes</p>
+                
+                <img id="modalFoto1" src="" style=" object-fit: cover;width: 100%;">
+                <p >Foto Após</p>
+                <img id="modalFoto2" src="" style=" object-fit: cover;width: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
 
-    
+<!-- JavaScript para preencher o modal -->
+<script>
+    let fotos = <?php echo json_encode($fotos); ?>;
+    console.log(fotos);
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".abrirModal").forEach(button => {
+            button.addEventListener("click", function () {
+                let nome = this.getAttribute("data-nome");
+                let data = this.getAttribute("data-data");
+                let id_foto1 = this.getAttribute("data-foto1");
+                let id_foto2 = this.getAttribute("data-foto2");
+
+                document.getElementById("modalTitulo").innerText = "Dados de " + nome;
+                document.getElementById("modalData").innerText = "Data: " + data;
+
+                
+                let exameSelecionado1 = fotos.find(fotos => fotos.id == id_foto1);
+                
+
+                let exameSelecionado2 = fotos.find(exame => exame.id == id_foto2);
+                
+                document.getElementById("modalFoto1").src = exameSelecionado1.local;
+                document.getElementById("modalFoto2").src = exameSelecionado2.local;
+            });
+        });
+    });
+</script>
+
+
+
