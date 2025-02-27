@@ -22,7 +22,7 @@
         
 
         <div class="row justify-content-center align-items-center mb-1" style="color:#FFFFFF;font-size:250%;" >
-            <div class="col-md-3 pr-md-0" style="display: flex; justify-content: center; align-items: center; height: 20vh;" >
+            <div class="col-md-3 pr-md-0" style="display: flex; justify-content: center; align-items: center; height: 10vh;" >
                                                                                                                                                 
             </div>
 

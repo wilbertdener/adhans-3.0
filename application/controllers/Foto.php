@@ -16,17 +16,46 @@ class Foto extends CI_Controller {
             $data['perfil'] =$role ;
             
             $this->load->view('includes/html_header');
-            $this->load->view('enviar_foto/enviar_foto_dashboard.php',$data);
+            $this->load->view('enviar_foto/enviar_foto1.php',$data);
             $this->load->view('includes/html_footer.php');
             #$this->login_model->logout();
             
         }else{
             redirect('login');
         }
-            
-            
-          
+       
+    }
 
+    public function foto1_rois_dentro(){
+        $role = $this->session->userdata();
+        if($this->session->userdata('logged_in')){
+            $data['perfil'] =$role ;
+            
+            $this->load->view('includes/html_header');
+            $this->load->view('enviar_foto/enviar_foto1.php',$data);
+            $this->load->view('includes/html_footer.php');
+            #$this->login_model->logout();
+            
+        }else{
+            redirect('login');
+        }
+       
+    }
+
+    public function foto2(){
+        $role = $this->session->userdata();
+        if($this->session->userdata('logged_in')){
+            $data['perfil'] =$role ;
+            
+            $this->load->view('includes/html_header');
+            $this->load->view('enviar_foto/enviar_foto2.php',$data);
+            $this->load->view('includes/html_footer.php');
+            #$this->login_model->logout();
+            
+        }else{
+            redirect('login');
+        }
+       
     }
 
 }

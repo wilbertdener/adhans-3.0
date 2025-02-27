@@ -58,6 +58,16 @@
         body{
           background-color: #B319D0; /* Cor de fundo (cinza claro) */
         }
+
+        .custom-confirm-btn {
+            background-color: #650086 !important; /* Cor personalizada */
+            border-color: #650086 !important;
+            color: white !important;
+        }
+        .custom-confirm-btn:hover {
+            background-color: #4b0063 !important; /* Cor mais escura no hover */
+            border-color: #4b0063 !important;
+        }
       </style>
       
 
@@ -107,19 +117,21 @@
         <script>
 function sair(){
   Swal.fire({
-    title:"Atenção", 
-        text:"Certeza que deseja deslogar do sistema?",
-        icon:'info',
-        showCancelButton: true,
-        cancelButtonText: 'Não', 
-        confirmButtonText: 'Sim', 
-        reverseButtons: true, 
-        customClass: {
-            cancelButton: "btn btn-lg btn-outline-secondary me-3",
-            confirmButton: "btn btn-lg btn-primary",
-        },
-        buttonsStyling: false
-    }).then((result) => {
+    title: "Atenção",
+    text: "Certeza que deseja deslogar do sistema?",
+    
+    
+    iconHtml: '<i class="fa-solid fa-circle-exclamation" style="color: #650086; font-size: 6rem;"></i>', // Ícone personalizado
+    showCancelButton: true,
+    cancelButtonText: "Não",
+    confirmButtonText: "Sim",
+    reverseButtons: true,
+    customClass: {
+        cancelButton: "btn btn-lg btn-outline-secondary me-3",
+        confirmButton: "btn btn-lg custom-confirm-btn", // Classe personalizada para o botão "Sim"
+    },
+    buttonsStyling: false
+  }).then((result) => {
         
         if (result.isConfirmed) {
           window.location.href = "<?php echo base_url('login/logout'); ?>";
@@ -127,5 +139,7 @@ function sair(){
     });
   }
 </script>
+
+
 
 

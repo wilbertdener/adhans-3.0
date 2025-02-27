@@ -37,46 +37,30 @@
         
         </div>
 
-        <div class="row justify-content-center align-items-center mb-1" style="color:#FFFFFF;font-size:250%;" >
         
-        
-            
-            
-            
-                <div class="row justify-content-center align-items-center d-flex flex-wrap ">
-                    <div class="col-1 col-md-3 d-flex justify-content-center align-items-center " style="display: flex; justify-content: center; align-items: center; ">
-                        <i class="fa-solid fa-file-invoice" style="color:#9223B3;font-size: 6rem;" ></i>
+        <div class="row justify-content-center align-items-center mb-1" style="color:#FFFFFF;font-size:250%;background:#B319D0" >
 
-                    </div>
-                    <div class="col-6 col-md-6 d-flex justify-content-center align-items-center" style="display: flex; justify-content: center; align-items: center; ">
-                        <div style="display: flex; flex-direction: column; ">
-                            <span style="color: #ffffff; font-size: 20px; font-family: Bookman Old Style, sans-serif; ">
-                                <?php echo 'oi'; ?>
-                            </span>
-                            <span style="color: #ffffff; font-size: 15px; font-family: Bookman Old Style, sans-serif; margin: 0;">
-                            Hanseníase: <?php echo 'oi'; ?>
-                            </span>
-                            <span style="color: #ffffff; font-size: 15px; font-family: Bookman Old Style, sans-serif; margin: 0;">
-                                <i class="fa-solid fa-calendar-days"style="color:#650086;font-size: 1.5rem;"></i>  20/02/2025
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-2 col-md-3 d-flex justify-content-center align-items-center" style="display: flex; justify-content: center; align-items: center; ">
-                        
-                        <i class="fa-solid fa-camera"style="color:#650086;margin-bottom:20px;border-radius: 50px; padding: 10px 20px;width: 90%; "></i>
-                        
-                        
-                    </div>
+            <div class="row justify-content-center align-items-center d-flex flex-wrap ">
+                <div class="col-md-3 pr-md-0 " style="display: flex; justify-content: center; align-items: center; ">
+                    <h1 style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Teste de histamina endógena</h1>
                 </div>
-
-            
-            
-        
-        <div class="row justify-content-center align-items-center d-flex flex-wrap "> 
-            <br>
-            <div style="width: 100%; height: 2px; background-color: white;width: 80%;"></div>
+                <iframe width="90%" height="315" src="https://www.youtube.com/embed/5yb2N3pnztU" 
+                    
+                    title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+                <br><br><br><br><br><br>
+                <div class="col-md-3 pr-md-0 " style="display: flex; justify-content: center; align-items: center; ">
+                <h1 style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Utilização do ADHans</h1>
+                </div>
+                <iframe width="90%" height="315" src="https://www.youtube.com/embed/KxeHOxO3A3I" 
+                    title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
-        
 
 
         
