@@ -54,22 +54,30 @@
         </div>
 
         <div class="row justify-content-center align-items-center mb-1" style="color:#FFFFFF;font-size:250%;" >
-        
-        
         <div class="row d-flex justify-content-center mb-3" style="width: 100%;">
-            <h1 style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Toque na imagem abaixo para enviar a fotografia antes da aplicação do teste de histamina endógena.</h1>
+            <h1  style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Toque na imagem para selecionar os rois.</h1>
+        </div>
+        <?php if($foto[0]->tempo=='0'){?>
+        <div class="row d-flex justify-content-center mb-3" style="width: 100%;">
+            <h1  style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Imagem antes da aplicação do teste</h1>
         </div>   
-            
+        <?php }else{?>    
+            <div class="row d-flex justify-content-center mb-3" style="width: 100%;">
+            <h1  style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Imagem após 30 segundos da aplicação do teste</h1>
+        </div> 
+
+        <?php }?>    
         
 
 
         <!-- Imagem clicável para upload -->
         <div class="row d-flex justify-content-center" style="width: 100%;">
             <label for="uploadInput" id="imageLabel">
-                <img style=" object-fit: cover;width: 100%;" id="previewImage" src="/adhans/img/sistema/foto1.png" 
-                    alt="Clique para enviar uma imagem" style="cursor: pointer; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);">
+                <img style=" object-fit: cover;width: 100%;" id="previewImage" src="<?php echo $foto[0]->local?>" 
+                    alt="Clique para enviar uma imagem" style="cursor: pointer; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);"
+                    >
             </label>
-            <input type="file" id="uploadInput" accept="image/*" style="display: none;" max-size="20480" onchange="enableButton()">
+            
         </div>
     </div>
 
@@ -80,9 +88,25 @@
         <button
             class="card card-pricing" 
             id="selectROIsButton" 
-            style="background:#650086; margin-bottom:20px; border-radius: 50px; padding: 10px 0px; width: 40%; cursor: pointer; display: none;"
-            onclick="spinner_on(this,uploadImage)">
+            style="background:#650086; margin-bottom:20px; border-radius: 50px; padding: 10px 0px; width: 40%; cursor: pointer; "
+            onclick="spinner_on(this,uploadImage)"
+            value=<?php echo $foto[0]->id?>
+            >
+
+            
+            
             <span style="color:#FFFFFF; font-size:1rem;">Selecionar ROIs</span>
+        </button>
+
+
+        <button
+            class="card card-pricing" 
+            id="selecttempo" 
+            style="background:#650086; margin-bottom:20px; border-radius: 50px; padding: 10px 0px; width: 40%; cursor: pointer;display: none; "
+            onclick="spinner_on(this,uploadImage)"
+            value=<?php echo $foto[0]->tempo?>
+            >
+            <span style="color:#FFFFFF; font-size:1rem;"></span>
         </button>
     </div>
 
@@ -100,7 +124,21 @@
 
         // Se houver uma função de callback, executa
         if (typeof callback === "function") {
-            callback();
+            //definir_roi($id,$foto='0')
+            let tempo = document.getElementById("selecttempo").value;
+            
+            if(tempo=='0'){
+                let id_foto2 = document.getElementById("selectROIsButton").value;
+                id_foto2 = id_foto2+"/1";
+                let url = `<?php echo base_url('foto/definir_roi/'); ?>${id_foto2}`;
+                
+                window.location.href = url;
+            }else{
+                let id_foto2 = document.getElementById("selectROIsButton").value;
+                let url = `<?php echo base_url('foto/resultado/'); ?>${id_foto2}`;
+                window.location.href = url;
+            }
+            
         }
         
     }
@@ -157,7 +195,7 @@
     }
 
     function uploadImageAndRedirect() {
-        window.location.href = '<?php echo base_url('foto/foto2')?>';
+        window.location.href = '<?php echo base_url('dashboard')?>';
         const imageInput = document.getElementById('imageInput');
         const file = imageInput.files[0];
 
@@ -178,7 +216,7 @@
         .then(response => {
             if (response.ok) {
                 // Redireciona após o upload
-                window.location.href = '<?php echo base_url('foto/foto2')?>';
+                window.location.href = '<?php echo base_url('dashboard')?>';
             } else {
                 alert('Falha no upload. Tente novamente.');
             }
@@ -234,9 +272,17 @@
         
 
         console.log("Enviando imagem:", file.name);
-        
-
-        fetch("<?php echo base_url('foto/upload/0'); ?>", {
+        let nome =  document.getElementById("nome_pac").value;
+        let nome_paciente ='';
+        if (nome === null || nome === '') {  // Verifica se é null ou string vazia
+            nome_paciente = 'Semnome';
+        } else {
+            nome_paciente =  nome;
+        }
+        console.log('aqui:');
+        console.log(nome_paciente);
+        let url = `<?php echo base_url('foto/upload/1/'); ?>${encodeURIComponent(nome_paciente)}`;
+        fetch(url, {
             method: "POST",
             body: formData
         })
@@ -246,7 +292,7 @@
 
             if (data.success) {
                 
-                window.location.href = "<?php echo base_url('foto/foto2'); ?>"; // Redireciona após salvar
+                window.location.href = "<?php echo base_url('dashboard'); ?>"; // Redireciona após salvar
             } else {
                 alert("Erro ao salvar a imagem: " + data.message);
             }
@@ -277,7 +323,7 @@
         .then(data => {
             if (data.status === "sucesso") {
                 alert("Imagem salva!");
-                window.location.href = "http://192.168.137.1/adhans/foto/foto2";
+                window.location.href = "http://192.168.137.1/adhans/dashboard";
             } else {
                 alert("Erro: " + data.mensagem);
             }

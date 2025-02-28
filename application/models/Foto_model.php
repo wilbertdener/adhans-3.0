@@ -51,14 +51,55 @@ class Foto_model extends CI_Model {
 
     
     
-    public function get_max_id()
-    {
+    public function get_max_id()    {
         $this->db->select_max('id');
         $query = $this->db->get('fotos');
         $result = $query->row();
         
         return $result ? $result->id+1 : 1; // Retorna o maior ID ou null se não houver registros
     }
+
+    public function get_fotos_by_id($id) {
+        $dados = NULL;
+        $session = $this->session->userdata();
+        $this->db->from('fotos');
+       
+        $this->db->where_in('fotos.id', $id);
+        
+        $dados = $this->db->get()->result();
+        return $dados;
+    }
+
+    public function get_exame_by_id_foto($id) {
+        //foto2
+        $dados = NULL;
+        
+        $this->db->from('exames');
+       
+        $this->db->where('id_foto2', $id);
+        
+        $dados = $this->db->get()->row();
+        return $dados;
+    }
+
+    public function update_exame($id, $diagnostico) {
+        // Prepara os dados para a atualização
+        $data = array(
+            'diagnostico' => $diagnostico // Atualiza o campo 'diagnostico' com o novo valor
+        );
+        
+        // Realiza a atualização na tabela 'exames' onde o 'id' é igual ao valor recebido
+        $this->db->where('id', $id);  // Define a condição para a atualização
+        $this->db->update('exames', $data);  // Atualiza a tabela 'exames'
+    
+        // Verifica se a atualização foi bem-sucedida
+        if ($this->db->affected_rows() > 0) {
+            return true;  // Retorna true caso tenha atualizado com sucesso
+        } else {
+            return false; // Retorna false caso não tenha ocorrido atualização
+        }
+    }
+    
     
 
 }

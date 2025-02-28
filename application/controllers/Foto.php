@@ -18,7 +18,7 @@ class Foto extends CI_Controller {
             $data['perfil'] =$role ;
             
             $this->load->view('includes/html_header');
-            $this->load->view('enviar_foto/enviar_foto1.php',$data);
+            $this->load->view('enviar_foto/enviar_foto.php',$data);
             $this->load->view('includes/html_footer.php');
             #$this->login_model->logout();
             
@@ -28,53 +28,54 @@ class Foto extends CI_Controller {
        
     }
 
-    public function foto1_rois_dentro(){
-        $role = $this->session->userdata();
-        if($this->session->userdata('logged_in')){
-            $data['perfil'] =$role ;
-            
-            $this->load->view('includes/html_header');
-            $this->load->view('enviar_foto/enviar_foto1.php',$data);
-            $this->load->view('includes/html_footer.php');
-            #$this->login_model->logout();
-            
-        }else{
-            redirect('login');
-        }
-       
-    }
+    public function definir_roi($id,$foto='0'){
 
-    public function foto2(){
-        $role = $this->session->userdata();
-        if($this->session->userdata('logged_in')){
-            $data['perfil'] =$role ;
-            
-            $this->load->view('includes/html_header');
-            $this->load->view('enviar_foto/enviar_foto2.php',$data);
-            $this->load->view('includes/html_footer.php');
-            #$this->login_model->logout();
-            
+        if($foto=='0'){
+            $ids_fotos=[intval($id)-1,intval($id)];
         }else{
-            redirect('login');
+            $ids_fotos=[intval($id),intval($id)+1];
         }
-       
-    }
-    /*
-    public function fotos_upload(){
         
-        $usuario_exame_arquivo = json_decode($this->input->post('arquivo_dados'));
-        armazenarArquivos($usuario_exame_arquivo->nome_arquivo,$usuario_exame_arquivo->arquivo);
-       //$usuario_exame_arquivo = json_decode($this->input->post('usuario_exame_arquivo'));
-			//$usuario_exame_arquivo = $this->apoio->deletarCaracteresEspeciais($usuario_exame_arquivo);
-            //$usuario_exame_arquivo->id_usuario_autenticacao = $this->session->userdata('id_usuario');
-            //$resultado = $this->exames_model->setUsuarioExameArquivo($usuario_exame_arquivo);
-        $this->output->set_output(True);
+        $role = $this->session->userdata();
+        if($this->session->userdata('logged_in')){
+            $data['perfil'] =$role ;
+            
+            $data['foto'] =$this->foto_model->get_fotos_by_id($ids_fotos[$foto]);
+            
+            
+            $this->load->view('includes/html_header');
+            $this->load->view('enviar_foto/definir_roi.php',$data);
+            $this->load->view('includes/html_footer.php');
+            
+            #$this->login_model->logout();
+            
+        }else{
+            redirect('login');
+        }
        
     }
 
-    public function armazenarArquivos($nome_arquivo,$arquivo) {
-        $arquivo = file_put_contents(__DIR__ ."/../../img/exames/".$nome_arquivo, $arquivo);
-    }*/
+    public function resultado($foto=null){
+
+        var_dump($foto);
+        $role = $this->session->userdata();
+        if($this->session->userdata('logged_in')){
+            $data['perfil'] =$role ;
+            $data['foto'] =$this->foto_model->get_exame_by_id_foto($foto);
+            var_dump($data['foto']);
+            
+            $this->load->view('includes/html_header');
+            $this->load->view('enviar_foto/resultado.php',$data);
+            $this->load->view('includes/html_footer.php');
+            
+            #$this->login_model->logout();
+            
+        }else{
+            redirect('login');
+        }
+       
+    }
+
 
     public function upload($tempo,$nome_pac='Sem nome'){
         header('Content-Type: application/json'); // Define a resposta como JSON
@@ -118,7 +119,7 @@ class Foto extends CI_Controller {
         // Tenta fazer o upload
         if (!$this->upload->do_upload('imagem')) {
             
-            echo json_encode(['success' => false, 'message' => $this->upload->display_errors()]);
+            echo json_encode(['success' => false, 'message' => $this->upload->display_errors(),'id' => $nome]);
         } else {
             $resp = $this->foto_model->set_foto("/adhans/img/exames/". $nome_completo,$tempo);
             if($tempo==1){
@@ -128,8 +129,24 @@ class Foto extends CI_Controller {
             echo json_encode([
                 'success' => true, 
                 'message' => 'Imagem salva com sucesso!',
-                'caminho' => base_url('img/exames/' . $this->upload->data('file_name'))
+                'caminho' => base_url('img/exames/' . $this->upload->data('file_name')),
+                'id' => $nome
             ]);
+        }
+    }
+
+    public function atualizaexame() {
+        // Verifica se o valor foi enviado via POST
+        $valor = $this->input->post('valor');
+        $id = $this->input->post('id');
+    
+        // Verifica se o valor não está vazio
+        if ($valor) {
+            $result = $this->foto_model->update_exame($id,$valor);
+            echo json_encode(true);
+        } else {
+            // Caso não tenha valor, retornamos FALSE
+            echo json_encode(false);
         }
     }
 
