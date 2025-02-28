@@ -27,6 +27,8 @@ class Foto_model extends CI_Model {
         
         $foto1= $result->id;
         $session = $this->session->userdata();
+        $nome_pac = str_replace("%20", " ", $nome_pac);
+        $data_atual = date("Y-m-d");
 
 
 
@@ -36,6 +38,7 @@ class Foto_model extends CI_Model {
             'nome_pac' => $nome_pac,
             'id_foto1'=> $foto1,
             'id_foto2'=> $foto2,
+            'data'=> $data_atual
         );
 
         // Insere os dados na tabela 'fotos'
