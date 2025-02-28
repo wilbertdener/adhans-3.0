@@ -80,15 +80,31 @@ class Foto extends CI_Controller {
         header('Content-Type: application/json'); // Define a resposta como JSON
 
         // Verifica se um arquivo foi enviado corretamente
-        if (!isset($_FILES['imagem']) || $_FILES['imagem']['error'] != 0) {
-            echo json_encode(['success' => false, 'message' => 'Nenhum arquivo enviado ou erro no upload.']);
+        if (!isset($_FILES['imagem'])) {
+            echo json_encode(['success' => false, 'message' => 'Nenhum arquivo foi enviado.']);
+            return;
+        }
+        
+        if ($_FILES['imagem']['error'] !== UPLOAD_ERR_OK) {
+            $errorMessages = [
+                UPLOAD_ERR_INI_SIZE   => 'O arquivo excede o limite definido no php.ini.',
+                UPLOAD_ERR_FORM_SIZE  => 'O arquivo excede o limite permitido pelo formulário.',
+                UPLOAD_ERR_PARTIAL    => 'O upload do arquivo foi interrompido.',
+                UPLOAD_ERR_NO_FILE    => 'Nenhum arquivo foi enviado.',
+                UPLOAD_ERR_NO_TMP_DIR => 'Pasta temporária ausente.',
+                UPLOAD_ERR_CANT_WRITE => 'Falha ao escrever o arquivo no disco.',
+                UPLOAD_ERR_EXTENSION  => 'Uma extensão do PHP interrompeu o upload.'
+            ];
+            $errorMessage = $errorMessages[$_FILES['imagem']['error']] ?? 'Erro desconhecido no upload.';
+            
+            echo json_encode(['success' => false, 'message' => $errorMessage]);
             return;
         }
 
         // Configuração do upload
         $config['upload_path']   = './img/exames/';
-        $config['allowed_types'] = 'jpg|jpeg|png';
-        $config['max_size']      = 2048; // 2MB
+        $config['allowed_types'] = 'jpg|jpeg|png|gif|bmp|webp|tiff|avif|svg|ico';
+        $config['max_size']      = 10240; // 2MB
         //pega no bd e setar la depois
         $nome = $this->foto_model->get_max_id();
         
@@ -116,6 +132,7 @@ class Foto extends CI_Controller {
             ]);
         }
     }
+
 }
 
 ?>

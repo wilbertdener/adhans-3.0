@@ -69,7 +69,7 @@
                 <img style=" object-fit: cover;width: 100%;" id="previewImage" src="/adhans/img/sistema/foto1.png" 
                     alt="Clique para enviar uma imagem" style="cursor: pointer; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);">
             </label>
-            <input type="file" id="uploadInput" accept="image/*" style="display: none;" onchange="enableButton()">
+            <input type="file" id="uploadInput" accept="image/*" style="display: none;" max-size="20480" onchange="enableButton()">
         </div>
     </div>
 

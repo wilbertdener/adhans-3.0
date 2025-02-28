@@ -9,7 +9,7 @@ class Historico_model extends CI_Model {
         $this->db->from('exames');
        
         $this->db->where('exames.id_usuario', $session['id']);
-        $this->db->order_by('data', 'DESC');
+        $this->db->order_by('id', 'DESC');
         
         
         $dados = $this->db->get()->result();
