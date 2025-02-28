@@ -16,7 +16,8 @@ class Tutorial extends CI_Controller {
             $role = $this->session->userdata();
             $data['perfil'] =$role ;
             
-            $this->load->view('includes/html_header');
+            $foto=$this->users_model->get_foto();
+            $this->load->view('includes/html_header',$foto);
             $this->load->view('tutorial/tutorial_dashboard.php',$data);
             $this->load->view('includes/html_footer.php');
             #$this->login_model->logout();

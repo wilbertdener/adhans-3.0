@@ -188,4 +188,43 @@ class Users_model extends CI_Model {
         $this->db->insert('pacientes',$data);
     }
 
+    public function get_foto(){
+        $session = $this->session->userdata();
+        
+        
+        
+        $this->db->from('usuarios');
+       
+        $this->db->where('id', $session['id']);
+        $this->db->select('usuarios.foto');
+        $dados = $this->db->get()->row();
+        
+        return $dados;
+        
+        
+    }
+
+    public function updte_foto($foto){
+        
+        $session = $this->session->userdata();
+        
+        
+        // Prepara os dados para a atualização
+        $data = array(
+            'foto' => $foto // Atualiza o campo 'diagnostico' com o novo valor
+        );
+        
+        // Realiza a atualização na tabela 'exames' onde o 'id' é igual ao valor recebido
+        $this->db->where('id', $session['id']);  // Define a condição para a atualização
+        $this->db->update('usuarios', $data);  // Atualiza a tabela 'exames'
+        return true;
+        // Verifica se a atualização foi bem-sucedida
+        if ($this->db->affected_rows() > 0) {
+            return true;  // Retorna true caso tenha atualizado com sucesso
+        } else {
+            return false; // Retorna false caso não tenha ocorrido atualização
+        }
+        
+    }
+
 }

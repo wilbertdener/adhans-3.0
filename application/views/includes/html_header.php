@@ -79,15 +79,32 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <div class="main-panel" style="background-color: #B319D0">
     <div class="content" >
-
+    
         <div style="display: flex;  gap: 1rem;padding-left: 1rem;">
             <div class="flex-md-row">
                 <div class="profile-pic pb-3">
-                    <img src="/adhans/img/fotoperfil/1.jpg" id="foto-perfil-menu" 
-                        style="width: 7rem; height: 7rem; border-radius: 50%; object-fit: cover;">
+                  <div class="row d-flex justify-content-center" style="width: 100%;">
+                    <label for="uploadInputperfil" id="imageLabel">
+                      <img id="previewperfil" src="<?php echo $foto?>" id="foto-perfil-menu" style="width: 7rem; height: 7rem; border-radius: 50%; object-fit: cover;" alt="Clique para enviar uma imagem">
+                        
+                    </label>
+                    <input type="file" id="uploadInputperfil" accept="image/*" style="display: none;" max-size="20480" >
+                  </div>
                 </div>
             </div>
 
+            
+
+            
+
+
+
+
+
+
+
+
+              
             <div style="display: flex; flex-direction: column; line-height: 1; gap: 2px;">
                 <span style="color: #ffffff; font-size: 40px; font-family: Bookman Old Style, sans-serif; margin: 0;font-weight: bold;">ADHans</span>
                 <span style="color: #ffffff; font-size: 20px; font-family: Bookman Old Style, sans-serif; margin: 0;">
@@ -114,30 +131,81 @@
         <!-- SweetAlert2 CDN -->
 
 
-        <script>
-function sair(){
-  Swal.fire({
-    title: "Atenção",
-    text: "Certeza que deseja deslogar do sistema?",
-    
-    
-    iconHtml: '<i class="fa-solid fa-circle-exclamation" style="color: #650086; font-size: 6rem;"></i>', // Ícone personalizado
-    showCancelButton: true,
-    cancelButtonText: "Não",
-    confirmButtonText: "Sim",
-    reverseButtons: true,
-    customClass: {
-        cancelButton: "btn btn-lg btn-outline-secondary me-3",
-        confirmButton: "btn btn-lg custom-confirm-btn", // Classe personalizada para o botão "Sim"
-    },
-    buttonsStyling: false
-  }).then((result) => {
-        
+<script>
+  function sair(){
+    Swal.fire({
+      title: "Atenção",
+      text: "Certeza que deseja deslogar do sistema?",
+      
+      
+      iconHtml: '<i class="fa-solid fa-circle-exclamation" style="color: #650086; font-size: 6rem;"></i>', // Ícone personalizado
+      showCancelButton: true,
+      cancelButtonText: "Não",
+      confirmButtonText: "Sim",
+      reverseButtons: true,
+      customClass: {
+          cancelButton: "btn btn-lg btn-outline-secondary me-3",
+          confirmButton: "btn btn-lg custom-confirm-btn", // Classe personalizada para o botão "Sim"
+      },
+      buttonsStyling: false
+    }).then((result) => {
+          
         if (result.isConfirmed) {
           window.location.href = "<?php echo base_url('login/logout'); ?>";
         }
     });
   }
+
+  document.getElementById("uploadInputperfil").addEventListener("change", function(event) {
+      const file = event.target.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              document.getElementById("previewperfil").src = e.target.result; // Atualiza a imagem
+              //document.getElementById("uploadInput").disabled = true; // Desabilita o input
+              //document.getElementById("imageLabel").style.pointerEvents = "none"; // Remove o clique na imagem
+          };
+          reader.readAsDataURL(file);
+          //upload()
+          uploadImage();
+      }
+  });
+  
+  function uploadImage() {
+    
+        let input = document.getElementById("uploadInputperfil");
+
+        if (!input || input.files.length === 0) {
+            alert("Por favor, selecione uma imagem.");
+            return;
+        }
+
+        let file = input.files[0];
+        
+        let formData = new FormData();
+        formData.append("imagem", file);
+        
+        fetch("<?php echo base_url('users/upload'); ?>", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Resposta do servidor:", data);
+
+            if (data.success) {
+                
+                
+            } else {
+                alert("Erro ao salvar a imagem: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Erro ao enviar a imagem:", error);
+            alert("Ocorreu um erro ao enviar a imagem.");
+        });
+    }
+
 </script>
 
 

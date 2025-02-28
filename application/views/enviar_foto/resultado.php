@@ -101,8 +101,7 @@
 <script>
     function atualizaexame(valor) {
         let id = document.getElementById("selecttempo").value;
-        console.log(id);
-        console.log(valor);
+        
         $.post("<?php echo site_url('foto/atualizaexame/');?>", {valor:valor,id:id},function(retorno){
             
             if(retorno){

@@ -107,6 +107,71 @@ class Users extends CI_Controller {
         $this->load->view('login/recuperar_senha');
     }
     
+    public function upload(){
+/*
+        if(){
+
+        }*/
+        
+        
+        header('Content-Type: application/json'); // Define a resposta como JSON
+
+        // Verifica se um arquivo foi enviado corretamente
+        if (!isset($_FILES['imagem'])) {
+            echo json_encode(['success' => false, 'message' => 'Nenhum arquivo foi enviado.']);
+            return;
+        }
+        
+        if ($_FILES['imagem']['error'] !== UPLOAD_ERR_OK) {
+            $errorMessages = [
+                UPLOAD_ERR_INI_SIZE   => 'O arquivo excede o limite definido no php.ini.',
+                UPLOAD_ERR_FORM_SIZE  => 'O arquivo excede o limite permitido pelo formulário.',
+                UPLOAD_ERR_PARTIAL    => 'O upload do arquivo foi interrompido.',
+                UPLOAD_ERR_NO_FILE    => 'Nenhum arquivo foi enviado.',
+                UPLOAD_ERR_NO_TMP_DIR => 'Pasta temporária ausente.',
+                UPLOAD_ERR_CANT_WRITE => 'Falha ao escrever o arquivo no disco.',
+                UPLOAD_ERR_EXTENSION  => 'Uma extensão do PHP interrompeu o upload.'
+            ];
+            $errorMessage = $errorMessages[$_FILES['imagem']['error']] ?? 'Erro desconhecido no upload.';
+            
+            echo json_encode(['success' => false, 'message' => $errorMessage]);
+            return;
+        }
+        
+        // Configuração do upload
+        $config['upload_path']   = './img/perfil/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif|bmp|webp|tiff|avif|svg|ico';
+        $config['max_size']      = 10240; // 2MB
+        $config['overwrite'] = TRUE;
+        //pega no bd e setar la depois
+        $nome = $this->session->userdata()['id'];
+        
+        //var_dump($nome.toString());
+        $config['file_name']= $nome;
+
+        // Carrega a biblioteca de upload do CodeIgniter
+        $this->load->library('upload', $config);
+        $extensao = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION); // Obtém a extensão do arquivo enviado
+        $nome_completo = $nome . "." . $extensao;
+        
+        // Tenta fazer o upload
+
+        
+
+        if (!$this->upload->do_upload('imagem')) {
+            
+            echo json_encode(['success' => false, 'message' => $this->upload->display_errors(),'id' => $nome]);
+        } else {
+            $resp = $this->users_model->updte_foto("/adhans/img/perfil/". $nome_completo);
+            
+            echo json_encode([
+                'success' => true, 
+                'message' => 'Imagem salva com sucesso!',
+                'caminho' => base_url('/img/perfil/' . $this->upload->data('file_name')),
+                'id' => $nome
+            ]);
+        }
+    }
 
 }
 

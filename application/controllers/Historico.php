@@ -21,7 +21,8 @@ class Historico extends CI_Controller {
             
             
             
-            $this->load->view('includes/html_header.php');
+            $foto=$this->users_model->get_foto();
+            $this->load->view('includes/html_header',$foto);
             $this->load->view('historico/historico_dashboard.php',$data);
             $this->load->view('includes/html_footer.php');
             
@@ -31,15 +32,7 @@ class Historico extends CI_Controller {
         }
          
     }
-    public function teste(){
-        
-            $this->load->view('historico/teste');
-            
-            
-            
-       
-         
-    }
+    
 
 }
 

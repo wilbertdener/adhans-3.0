@@ -14,10 +14,13 @@ class Foto extends CI_Controller {
     
     public function index(){
         $role = $this->session->userdata();
+        
+        
         if($this->session->userdata('logged_in')){
             $data['perfil'] =$role ;
-            
-            $this->load->view('includes/html_header');
+
+            $foto=$this->users_model->get_foto();
+            $this->load->view('includes/html_header',$foto);
             $this->load->view('enviar_foto/enviar_foto.php',$data);
             $this->load->view('includes/html_footer.php');
             #$this->login_model->logout();
@@ -43,7 +46,8 @@ class Foto extends CI_Controller {
             $data['foto'] =$this->foto_model->get_fotos_by_id($ids_fotos[$foto]);
             
             
-            $this->load->view('includes/html_header');
+            $foto=$this->users_model->get_foto();
+            $this->load->view('includes/html_header',$foto);
             $this->load->view('enviar_foto/definir_roi.php',$data);
             $this->load->view('includes/html_footer.php');
             
@@ -57,14 +61,15 @@ class Foto extends CI_Controller {
 
     public function resultado($foto=null){
 
-        var_dump($foto);
+        
         $role = $this->session->userdata();
         if($this->session->userdata('logged_in')){
             $data['perfil'] =$role ;
             $data['foto'] =$this->foto_model->get_exame_by_id_foto($foto);
-            var_dump($data['foto']);
             
-            $this->load->view('includes/html_header');
+            
+            $foto=$this->users_model->get_foto();
+            $this->load->view('includes/html_header',$foto);
             $this->load->view('enviar_foto/resultado.php',$data);
             $this->load->view('includes/html_footer.php');
             
