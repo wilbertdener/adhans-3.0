@@ -60,9 +60,7 @@
             <h1 style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Toque na imagem abaixo para enviar a fotografia antes da aplicação do teste de histamina endógena.</h1>
         </div>   
             
-        <div class="row d-flex justify-content-center mb-3" style="width: 100%;">
-            <input name="login" class="form-control form-control-user custom-input" id="nome_pac" placeholder="Nome do paciente" >
-        </div>
+        
 
 
         <!-- Imagem clicável para upload -->
@@ -83,18 +81,30 @@
             class="card card-pricing" 
             id="selectROIsButton" 
             style="background:#650086; margin-bottom:20px; border-radius: 50px; padding: 10px 0px; width: 40%; cursor: pointer; display: none;"
-            onclick="uploadImageAndRedirect()">
+            onclick="spinner_on(this,uploadImage)">
             <span style="color:#FFFFFF; font-size:1rem;">Selecionar ROIs</span>
         </button>
     </div>
 
-
+    
 
 
 
        
 
 <script>
+    function spinner_on(button, callback) {
+        // Desativa o botão e altera o texto
+        button.disabled = true;
+        button.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processando...';
+
+        // Se houver uma função de callback, executa
+        if (typeof callback === "function") {
+            callback();
+        }
+        
+    }
+
     document.getElementById("uploadInput").addEventListener("change", function(event) {
         const file = event.target.files[0];
         if (file) {
@@ -147,6 +157,7 @@
     }
 
     function uploadImageAndRedirect() {
+        window.location.href = '<?php echo base_url('foto/foto2')?>';
         const imageInput = document.getElementById('imageInput');
         const file = imageInput.files[0];
 
@@ -176,6 +187,106 @@
             alert('Erro ao enviar a imagem: ' + error);
         });
     }
+
+    /*
+    function setFoto(){
+        var arquivo_dados = {
+            nome_arquivo:"teste",
+            arquivo:document.getElementById("uploadInput")
+        };
+        
+        console.log('ate aqui foi');
+
+        $.post("<?php echo site_url('foto/fotos_upload/');?>", {arquivo_dados:JSON.stringify(arquivo_dados)},function(retorno){
+            console.log(retorno);
+            if(retorno){
+                Swal.fire({
+                    text: "certo",
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    customClass: {
+                        popup: 'swalpopupvitais',
+                    }
+                }).then(function(){
+                    //location.reload()
+                });
+            }else{
+                
+                Swal.fire('erro', 'erro', 'error');
+            }
+        });
+        
+    }*/
+
+    function uploadImage() {
+        let input = document.getElementById("uploadInput");
+
+        if (!input || input.files.length === 0) {
+            alert("Por favor, selecione uma imagem.");
+            return;
+        }
+
+        let file = input.files[0];
+        console.log(file);
+        let formData = new FormData();
+        formData.append("imagem", file);
+        
+
+        console.log("Enviando imagem:", file.name);
+        
+
+        fetch("<?php echo base_url('foto/upload/0'); ?>", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Resposta do servidor:", data);
+
+            if (data.success) {
+                
+                window.location.href = "<?php echo base_url('foto/foto2'); ?>"; // Redireciona após salvar
+            } else {
+                alert("Erro ao salvar a imagem: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Erro ao enviar a imagem:", error);
+            alert("Ocorreu um erro ao enviar a imagem.");
+        });
+    }
+
+    document.getElementById("selectROIsButton").addEventListener("click", function() {
+        let fileInput = document.getElementById("uploadInput");
+        let file = fileInput.files[0];
+
+        if (!file) {
+            alert("Nenhuma imagem selecionada!");
+            return;
+        }
+
+        let formData = new FormData();
+        formData.append("imagem", file);
+
+        fetch("http://192.168.137.1/adhans/foto/upload", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "sucesso") {
+                alert("Imagem salva!");
+                window.location.href = "http://192.168.137.1/adhans/foto/foto2";
+            } else {
+                alert("Erro: " + data.mensagem);
+            }
+        })
+        .catch(error => console.error("Erro ao enviar a imagem:", error));
+    });
+    
+
+
 
 </script>
         
