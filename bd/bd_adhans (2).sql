@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 28-Fev-2025 às 11:34
+-- Tempo de geração: 28-Fev-2025 às 17:18
 -- Versão do servidor: 5.7.36
 -- versão do PHP: 7.4.26
 
@@ -141,8 +141,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `login`, `senha`, `email`, `nome`, `nome_social`, `data_de_nascimento`, `ativo`, `crm`, `foto`) VALUES
-(1, 'admin', 'admin', 'admin', 'Wilbert dener', 'Wilbert Dener', '2022-12-28', 1, '115222', ''),
-(2, 'user', 'user', 'user', 'user', 'user', NULL, 1, NULL, '');
+(1, 'admin', 'admin', 'admin', 'Wilbert dener', 'Wilbert Dener', '2022-12-28', 1, '115222', '/adhans/img/perfil/usuario.png'),
+(2, 'user', 'user', 'user', 'user', 'user', NULL, 1, NULL, '/adhans/img/perfil/usuario.png');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
