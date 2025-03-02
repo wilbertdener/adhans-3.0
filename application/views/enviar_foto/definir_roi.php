@@ -81,7 +81,9 @@
         </div> 
 
         <?php }?>    
-        
+        <div class="row d-flex justify-content-center mb-3" style="width: 100%;">
+            <h4  id='definirroi' style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Selecione 3 Rois dentro da lesão</h4>
+        </div> 
 
         <div class="row d-flex justify-content-center" style="width: 100%;">
             <label id="imageLabel">
@@ -130,7 +132,9 @@
 
     document.getElementById("previewImage").addEventListener("click", function(event) {
         if (clickCount >= 6) return; // Garante que apenas 6 quadrados sejam criados
-
+        if(clickCount == 2){
+            document.getElementById('definirroi').innerText = 'Selecione 3 areas fora da lesão';
+        }
         let img = event.target;
         let rect = img.getBoundingClientRect();
         let x = event.clientX - rect.left; // Calcula a posição X relativa à imagem
@@ -139,8 +143,9 @@
         let square = document.createElement("div");
         square.classList.add("square");
         square.style.borderColor = clickCount < 3 ? "white" : "purple"; // 3 primeiros brancos, 3 últimos roxos
-        square.style.left = `${x - 10}px`; // Centraliza o quadrado no clique
-        square.style.top = `${y - 10}px`;
+        
+        square.style.left = `${x }px`; // Centraliza o quadrado no clique
+        square.style.top = `${y }px`;
 
         document.getElementById("imageLabel").appendChild(square);
 
