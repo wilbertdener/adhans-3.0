@@ -45,6 +45,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
 
-    <link rel="manifest" href="/adhans/assets/json/manifest.json">  <!-- Referência ao manifesto -->
+    <link rel="manifest" href="manifest.json">  <!-- Referência ao manifesto -->
     
       

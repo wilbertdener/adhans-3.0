@@ -51,7 +51,7 @@
     <script src="<?php echo base_url("assets/js/sweetalert2.all.min.js"); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-    <link rel="manifest" href="/adhans/assets/json/manifest.json">  <!-- Referência ao manifesto -->
+    <link rel="manifest" href="manifest.json">  <!-- Referência ao manifesto -->
     
 
     <style>
