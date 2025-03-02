@@ -191,7 +191,7 @@
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Resposta do servidor:", data);
+            
 
             if (data.success) {
                 

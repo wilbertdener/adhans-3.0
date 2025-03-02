@@ -297,36 +297,7 @@
         });
     }
 
-    /*
-    function setFoto(){
-        var arquivo_dados = {
-            nome_arquivo:"teste",
-            arquivo:document.getElementById("uploadInput")
-        };
-        
-        console.log('ate aqui foi');
-
-        $.post("<?php echo site_url('foto/fotos_upload/');?>", {arquivo_dados:JSON.stringify(arquivo_dados)},function(retorno){
-            console.log(retorno);
-            if(retorno){
-                Swal.fire({
-                    text: "certo",
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1000,
-                    customClass: {
-                        popup: 'swalpopupvitais',
-                    }
-                }).then(function(){
-                    //location.reload()
-                });
-            }else{
-                
-                Swal.fire('erro', 'erro', 'error');
-            }
-        });
-        
-    }*/
+    
 
     function uploadImage() {
         let input = document.getElementById("uploadInput");
@@ -358,7 +329,7 @@
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Resposta do servidor:", data);
+            
 
             if (data.success) {
                 
@@ -378,12 +349,12 @@
 
 
         let file = input.files[0];
-        console.log(file);
+     
         let formData = new FormData();
         formData.append("imagem", file);
         
 
-        console.log("Enviando imagem:", file.name);
+        
         let nome =  document.getElementById("nome_pac").value;
         let nome_paciente ='';
         if (nome === null || nome === '') {  // Verifica se é null ou string vazia
@@ -399,11 +370,10 @@
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Resposta do servidor:", data);
-            console.log("id:", data.id);
+           
             let id_foto = data.id;
             id_foto = id_foto.toString();
-            console.log("Conversao:", id_foto);
+           
             if (data.success) {
                 let url2 = `<?php echo base_url('foto/definir_roi/'); ?>${encodeURIComponent(id_foto)}`;
                 window.location.href = url2; // Redireciona após salvar
@@ -436,7 +406,7 @@
         let formData = new FormData();
         formData.append("imagem", file);
 
-        fetch("http://192.168.137.1/adhans/foto/upload", {
+        fetch("adhans/foto/upload", {
             method: "POST",
             body: formData
         })
@@ -446,7 +416,7 @@
                 let formData2 = new FormData();
                 formData2.append("imagem", file2);
 
-                return fetch("http://192.168.137.1/adhans/foto/upload", {
+                return fetch("adhans/foto/upload", {
                     method: "POST",
                     body: formData2
                 });
@@ -458,7 +428,7 @@
         .then(data => {
             if (data.success) { // Alterado de `data.status` para `data.success`
                 alert("Imagens salvas com sucesso!");
-                window.location.href = "http://192.168.137.1/adhans/foto/foto2";
+                window.location.href = "adhans/foto/foto2";
             } else {
                 throw new Error("Erro no upload da segunda imagem: " + data.message);
             }

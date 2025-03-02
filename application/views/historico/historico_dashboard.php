@@ -92,6 +92,7 @@
                 
                 data-nome="<?php echo $exame->nome_pac; ?>" 
                 data-data="<?php echo $exame->data; ?>" 
+                data-diagnostico="Hanseníase: <?php if($exame->diagnostico){echo 'Positivo';}else{echo 'Negativo';} ?>" 
                 data-foto1="<?php echo $exame->id_foto1; ?>" 
                 data-foto2="<?php echo $exame->id_foto2; ?>" 
                 data-bs-toggle="modal" 
@@ -120,10 +121,12 @@
         <div class="modal-content">
             <div class="modal-header" style="background:#B319D0">
                 <h5 class="modal-title" id="modalTitulo"></h5>
+                
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <p id="modalData"></p>
+                <p id="modalSubtitulo"></p>
                 <p>Foto Antes</p>
                 <div class="row d-flex justify-content-center" style="width: 100%; position: relative;">
                     <label id="imageLabel1">
@@ -154,8 +157,12 @@ document.addEventListener("DOMContentLoaded", function () {
             let data = this.getAttribute("data-data");
             let id_foto1 = this.getAttribute("data-foto1");
             let id_foto2 = this.getAttribute("data-foto2");
+            let diagnostico = this.getAttribute("data-diagnostico");
+            
 
             document.getElementById("modalTitulo").innerText = "Dados de " + nome;
+            document.getElementById("modalSubtitulo").innerText = diagnostico;
+             
             document.getElementById("modalData").innerText = "Data: " + data;
 
             let exameSelecionado1 = fotos.find(fotos => fotos.id == id_foto1);
@@ -194,7 +201,7 @@ function desenharQuadrados(coordenadas, foto,dimensao) {
     
     const imageLabel = document.getElementById("imageLabel"+ foto);
     const img = document.getElementById('modalFoto' + foto);
-    console.log("coordenadas antes:", coordenadas);
+    
 
     // Adicionar um atraso de 1 segundo antes de começar a desenhar
     setTimeout(function() {
@@ -210,14 +217,12 @@ function desenharQuadrados(coordenadas, foto,dimensao) {
             //correção da coordenadas para a nova dimensao
             coordenadas = corrigirCoordenadas(dimensao, novadim, coordenadas);
             
-            console.log("dimensao original:", dimensao);
-            console.log("dimensao atual:", novadim);
             
 
             // Desenhar os quadrados nas coordenadas
             coordenadas.forEach((coordenada, index) => {
                 const [x, y] = coordenada.split(';').map(Number);  // Converter para inteiros
-                console.log(`Coordenada ${index}: x=${x}, y=${y}`);
+                
 
                 // Verificar se a coordenada está dentro da área da imagem (canvas)
                 if (x > 0 && x < imgWidth && y > 0 && y < imgHeight) {

@@ -147,29 +147,22 @@
         // Salva as coordenadas
         coordenadas.push({ x: x, y: y });
         if(clickCount == 5){
-            console.log("Coordenadas salvas:", coordenadas);
+            
             enableButton();
         }
-        //console.log("Coordenadas salvas:", coordenadas); // Exibe no console
+        
 
         clickCount++; // Incrementa o contador de cliques
     });
 
-    // Outra função que acessa a variável global
-    function exibirCoordenadas() {
-        console.log("Acessando coordenadas de outra função:", coordenadas);
-    }
+    
 
     function enableButton() {
         
         const button = document.getElementById('selectROIsButton');
 
         button.style.display = 'block'; // Torna o botão visível
-        const img = document.getElementById('previewImage');
-        const imgWidth = img.offsetWidth;
-        const imgHeight = img.offsetHeight;
-        let variav = imgWidth+";"+ imgHeight;
-        console.log("Imagem carregada com dimensões:", variav);
+        
         
     }
 
@@ -187,7 +180,7 @@
             alert("Nenhuma usuario vinculado");
             return;
         }
-        console.log(coordenadas);
+        
         const img = document.getElementById('previewImage');
         const imgWidth = img.offsetWidth;
         const imgHeight = img.offsetHeight;
@@ -202,7 +195,6 @@
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Resposta do servidor:", data);
             alert("Coordenadas salvas com sucesso!");
             let tempo = document.getElementById("selecttempo").value;
             
@@ -227,204 +219,6 @@
     
 </script>
 
-            
-            
-        
-<script>
-    /*
-    function spinner_on(button, callback) {
-        // Desativa o botão e altera o texto
-        button.disabled = true;
-        button.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processando...';
-
-        // Se houver uma função de callback, executa
-        if (typeof callback === "function") {
-            //definir_roi($id,$foto='0')
-            let tempo = document.getElementById("selecttempo").value;
-            
-            if(tempo=='0'){
-                let id_foto2 = document.getElementById("selectROIsButton").value;
-                id_foto2 = id_foto2+"/1";
-                let url = `<?php #echo base_url('foto/definir_roi/'); ?>${id_foto2}`;
-                
-                window.location.href = url;
-            }else{
-                let id_foto2 = document.getElementById("selectROIsButton").value;
-                let url = `<?php #echo base_url('foto/resultado/'); ?>${id_foto2}`;
-                window.location.href = url;
-            }
-            
-        }
-        
-    }
-
-    document.getElementById("uploadInput").addEventListener("change", function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById("previewImage").src = e.target.result; // Atualiza a imagem
-                //document.getElementById("uploadInput").disabled = true; // Desabilita o input
-                //document.getElementById("imageLabel").style.pointerEvents = "none"; // Remove o clique na imagem
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-    const upload = multer({ dest: 'adhans/img/exames/' });
-    // Envia a imagem para o servidor
-    document.getElementById("sendImageButton").addEventListener("click", function() {
-        const fileInput = document.getElementById("uploadInput");
-        const file = fileInput.files[0];
-
-        if (file) {
-            const formData = new FormData();
-            formData.append("image", file);  // Adiciona a imagem ao FormData
-
-            // Envia o arquivo para o servidor usando Fetch API
-            fetch("/upload", {  // Ajuste o endpoint "/upload" conforme sua necessidade no backend
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert("Imagem enviada com sucesso!");
-            })
-            .catch(error => {
-                alert("Erro ao enviar a imagem");
-                console.error(error);
-            });
-        }
-    });
-
-    
-    function enableButton() {
-        const input = document.getElementById('uploadInput');
-        const button = document.getElementById('selectROIsButton');
-
-        // Exibe o botão apenas quando uma imagem for carregada
-        if (input.files && input.files[0]) {
-            button.style.display = 'block'; // Torna o botão visível
-        } else {
-            button.style.display = 'none'; // Mantém o botão invisível
-        }
-    }
-
-    function uploadImageAndRedirect() {
-        window.location.href = '<?php #echo base_url('dashboard')?>';
-        const imageInput = document.getElementById('imageInput');
-        const file = imageInput.files[0];
-
-        if (!file) {
-            alert('Por favor, selecione uma imagem antes de enviar!');
-            return;
-        }
-
-        // Criando um FormData para enviar a imagem
-        const formData = new FormData();
-        formData.append('image', file);
-
-        // Enviando a imagem via POST para o servidor
-        fetch('adhans/img/exames', {  // Substitua pelo caminho do seu script de upload
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (response.ok) {
-                // Redireciona após o upload
-                window.location.href = '<?php #echo base_url('dashboard')?>';
-            } else {
-                alert('Falha no upload. Tente novamente.');
-            }
-        })
-        .catch(error => {
-            alert('Erro ao enviar a imagem: ' + error);
-        });
-    }
-
-    
-
-    function uploadImage() {
-        let input = document.getElementById("uploadInput");
-
-        if (!input || input.files.length === 0) {
-            alert("Por favor, selecione uma imagem.");
-            return;
-        }
-
-        let file = input.files[0];
-        console.log(file);
-        let formData = new FormData();
-        formData.append("imagem", file);
-        
-
-        console.log("Enviando imagem:", file.name);
-        let nome =  document.getElementById("nome_pac").value;
-        let nome_paciente ='';
-        if (nome === null || nome === '') {  // Verifica se é null ou string vazia
-            nome_paciente = 'Semnome';
-        } else {
-            nome_paciente =  nome;
-        }
-        console.log('aqui:');
-        console.log(nome_paciente);
-        let url = `<?php #echo base_url('foto/upload/1/'); ?>${encodeURIComponent(nome_paciente)}`;
-        fetch(url, {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Resposta do servidor:", data);
-
-            if (data.success) {
-                
-                window.location.href = "<?php #echo base_url('dashboard'); ?>"; // Redireciona após salvar
-            } else {
-                alert("Erro ao salvar a imagem: " + data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Erro ao enviar a imagem:", error);
-            alert("Ocorreu um erro ao enviar a imagem.");
-        });
-    }
-
-    document.getElementById("selectROIsButton").addEventListener("click", function() {
-        let fileInput = document.getElementById("uploadInput");
-        let file = fileInput.files[0];
-
-        if (!file) {
-            alert("Nenhuma imagem selecionada!");
-            return;
-        }
-
-        let formData = new FormData();
-        formData.append("imagem", file);
-
-        fetch("http://192.168.137.1/adhans/foto/upload", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "sucesso") {
-                alert("Imagem salva!");
-                window.location.href = "http://192.168.137.1/adhans/dashboard";
-            } else {
-                alert("Erro: " + data.mensagem);
-            }
-        })
-        .catch(error => console.error("Erro ao enviar a imagem:", error));
-    });
-    
-
-
-
-
-    */
-
-
-</script> 
         
 
 
