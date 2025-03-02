@@ -84,7 +84,7 @@
             <div class="flex-md-row">
                 <div class="profile-pic pb-3">
                   <div class="row d-flex justify-content-center" style="width: 100%;">
-                    <label for="uploadInputperfil" id="imageLabel">
+                    <label for="uploadInputperfil" id="imagePerfilLabel">
                       <img id="previewperfil" src="<?php echo $foto?>" id="foto-perfil-menu" style="width: 7rem; height: 7rem; border-radius: 50%; object-fit: cover;" alt="Clique para enviar uma imagem">
                         
                     </label>

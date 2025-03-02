@@ -14,7 +14,21 @@
   text-align: center;
   
 }
+ /* Garante que os quadrados sejam posicionados corretamente */
+ #imageLabel {
+        position: relative;
+        display: inline-block;
+    }
 
+    .square {
+        position: absolute;
+        width: 10px; /* Tamanho do quadrado */
+        height: 10px;
+        border: 2px solid;
+        background: transparent; /* Torna o quadrado vazado */
+    }
+
+    
 </style>
 
 
@@ -110,11 +124,20 @@
             </div>
             <div class="modal-body">
                 <p id="modalData"></p>
-                <p >Foto Antes</p>
-                
-                <img id="modalFoto1" src="" style=" object-fit: cover;width: 100%;">
-                <p >Foto Após</p>
-                <img id="modalFoto2" src="" style=" object-fit: cover;width: 100%;">
+                <p>Foto Antes</p>
+                <div class="row d-flex justify-content-center" style="width: 100%; position: relative;">
+                    <label id="imageLabel1">
+                        <img id="modalFoto1" src="" style="object-fit: cover;width: 100%;"/>
+                    </label>
+                    <canvas id="myCanvas1" style="position: absolute; top: 0; left: 0; z-index: 10; pointer-events: none;"></canvas>
+                </div>
+                <p>Foto Após</p>
+                <div class="row d-flex justify-content-center" style="width: 100%; position: relative;">
+                    <label id="imageLabel2">
+                        <img id="modalFoto2" src="" style="object-fit: cover;width: 100%;"/>
+                    </label>
+                    <canvas id="myCanvas2" style="position: absolute; top: 0; left: 0; z-index: 10; pointer-events: none;"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -123,29 +146,123 @@
 <!-- JavaScript para preencher o modal -->
 <script>
     let fotos = <?php echo json_encode($fotos); ?>;
-    console.log(fotos);
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".abrirModal").forEach(button => {
-            button.addEventListener("click", function () {
-                let nome = this.getAttribute("data-nome");
-                let data = this.getAttribute("data-data");
-                let id_foto1 = this.getAttribute("data-foto1");
-                let id_foto2 = this.getAttribute("data-foto2");
 
-                document.getElementById("modalTitulo").innerText = "Dados de " + nome;
-                document.getElementById("modalData").innerText = "Data: " + data;
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".abrirModal").forEach(button => {
+        button.addEventListener("click", function () {
+            let nome = this.getAttribute("data-nome");
+            let data = this.getAttribute("data-data");
+            let id_foto1 = this.getAttribute("data-foto1");
+            let id_foto2 = this.getAttribute("data-foto2");
 
-                
-                let exameSelecionado1 = fotos.find(fotos => fotos.id == id_foto1);
-                
+            document.getElementById("modalTitulo").innerText = "Dados de " + nome;
+            document.getElementById("modalData").innerText = "Data: " + data;
 
-                let exameSelecionado2 = fotos.find(exame => exame.id == id_foto2);
-                
-                document.getElementById("modalFoto1").src = exameSelecionado1.local;
-                document.getElementById("modalFoto2").src = exameSelecionado2.local;
-            });
+            let exameSelecionado1 = fotos.find(fotos => fotos.id == id_foto1);
+            let exameSelecionado2 = fotos.find(exame => exame.id == id_foto2);
+
+            document.getElementById("modalFoto1").src = exameSelecionado1.local;
+            document.getElementById("modalFoto2").src = exameSelecionado2.local;
+
+            coordenadas_f1 = [
+                exameSelecionado1.Roi_dentro1,
+                exameSelecionado1.Roi_dentro2,
+                exameSelecionado1.Roi_dentro3,
+                exameSelecionado1.Roi_fora1,
+                exameSelecionado1.Roi_fora2,
+                exameSelecionado1.Roi_fora3
+            ];
+
+            coordenadas_f2 = [
+                exameSelecionado2.Roi_dentro1,
+                exameSelecionado2.Roi_dentro2,
+                exameSelecionado2.Roi_dentro3,
+                exameSelecionado2.Roi_fora1,
+                exameSelecionado2.Roi_fora2,
+                exameSelecionado2.Roi_fora3
+            ];
+
+            
+            desenharQuadrados(coordenadas_f1, '1',exameSelecionado1.dimensao); // Desenhar para a primeira imagem
+            desenharQuadrados(coordenadas_f2, '2',exameSelecionado2.dimensao); // Desenhar para a segunda imagem
         });
     });
+});
+
+// Função para desenhar os quadrados
+function desenharQuadrados(coordenadas, foto,dimensao) {
+    
+    const imageLabel = document.getElementById("imageLabel"+ foto);
+    const img = document.getElementById('modalFoto' + foto);
+    console.log("coordenadas antes:", coordenadas);
+
+    // Adicionar um atraso de 1 segundo antes de começar a desenhar
+    setTimeout(function() {
+        img.onload = function() {
+            // Limpar quadrados anteriores
+            let existingSquares = imageLabel.querySelectorAll('.square');
+            existingSquares.forEach(square => square.remove());
+
+            // Ajustar o tamanho do canvas para o tamanho da imagem
+            const imgWidth = img.offsetWidth;
+            const imgHeight = img.offsetHeight;
+            const novadim = imgWidth+";"+imgHeight;
+            //correção da coordenadas para a nova dimensao
+            coordenadas = corrigirCoordenadas(dimensao, novadim, coordenadas);
+            
+            console.log("dimensao original:", dimensao);
+            console.log("dimensao atual:", novadim);
+            
+
+            // Desenhar os quadrados nas coordenadas
+            coordenadas.forEach((coordenada, index) => {
+                const [x, y] = coordenada.split(';').map(Number);  // Converter para inteiros
+                console.log(`Coordenada ${index}: x=${x}, y=${y}`);
+
+                // Verificar se a coordenada está dentro da área da imagem (canvas)
+                if (x > 0 && x < imgWidth && y > 0 && y < imgHeight) {
+                    // Criar o quadrado como uma div
+                    const square = document.createElement('div');
+                    square.classList.add('square');
+
+                    // Posicionar o quadrado
+                    square.style.left = `${x - 5}px`; // Ajuste da posição do quadrado
+                    square.style.top = `${y - 5}px`; // Ajuste da posição do quadrado
+
+                    // Definir a cor do quadrado
+                    square.style.borderColor = (index < 3) ? 'white' : 'purple';  // Branco para as 3 primeiras, roxo para as últimas 3
+
+                    // Adicionar o quadrado à imagem
+                    imageLabel.appendChild(square);
+                }
+            });
+        };
+
+        // Se a imagem já estiver carregada (caso o onload não seja acionado)
+        if (img.complete) {
+            img.onload(); // Chamamos manualmente se já carregada
+        }
+    }, 1000);  // 1000 milissegundos de atraso (1 segundo)
+}
+
+
+function corrigirCoordenadas(dimensaoAntiga, dimensaoNova, coordenadas) {
+    let [larguraAntiga, alturaAntiga] = dimensaoAntiga.split(";").map(Number);
+    let [larguraNova, alturaNova] = dimensaoNova.split(";").map(Number);
+
+    let fatorLargura = larguraNova / larguraAntiga;
+    let fatorAltura = alturaNova / alturaAntiga;
+
+    let coordenadasCorrigidas = coordenadas.map(coord => {
+        let [x, y] = coord.split(";").map(Number);
+        let novoX = Math.round(x * fatorLargura);
+        let novoY = Math.round(y * fatorAltura);
+        return `${novoX};${novoY}`;
+    });
+
+    return coordenadasCorrigidas;
+}
+
     
 </script>
 

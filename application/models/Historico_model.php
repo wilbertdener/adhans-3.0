@@ -22,7 +22,7 @@ class Historico_model extends CI_Model {
         $dados = NULL;
         $session = $this->session->userdata();
     
-        $this->db->select('fotos.id, fotos.local');
+        $this->db->select('fotos.id, fotos.local, fotos.Roi_dentro1, fotos.Roi_dentro2, fotos.Roi_dentro3, fotos.Roi_fora1, fotos.Roi_fora2, fotos.Roi_fora3,fotos.dimensao');
         $this->db->from('fotos');
     
         // Fazer JOIN com a tabela exames para obter apenas as fotos associadas ao usuário logado

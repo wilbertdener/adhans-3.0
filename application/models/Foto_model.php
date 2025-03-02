@@ -66,7 +66,7 @@ class Foto_model extends CI_Model {
        
         $this->db->where_in('fotos.id', $id);
         
-        $dados = $this->db->get()->result();
+        $dados = $this->db->get()->row();
         return $dados;
     }
 
@@ -98,6 +98,34 @@ class Foto_model extends CI_Model {
         } else {
             return false; // Retorna false caso não tenha ocorrido atualização
         }
+    }
+
+    public function update_coordenadas_foto($id, $coordenadas,$dimensao) {
+        // Prepara os dados para a atualização
+       
+        $data = array(
+            'Roi_dentro1' => $coordenadas[0],
+            'Roi_dentro2' => $coordenadas[1],
+            'Roi_dentro3' => $coordenadas[2],
+            'Roi_fora1' => $coordenadas[3],
+            'Roi_fora2' => $coordenadas[4],
+            'Roi_fora3' => $coordenadas[5], 
+            'dimensao' =>$dimensao,// Atualiza o campo 'diagnostico' com o novo valor
+        );
+        
+        
+        // Realiza a atualização na tabela 'exames' onde o 'id' é igual ao valor recebido
+        $this->db->where('id', $id);  // Define a condição para a atualização
+        $this->db->update('fotos', $data);  // Atualiza a tabela 'exames'
+    
+        // Verifica se a atualização foi bem-sucedida
+        /*
+        if ($this->db->affected_rows() > 0) {
+            return true;  // Retorna true caso tenha atualizado com sucesso
+        } else {
+            return false; // Retorna false caso não tenha ocorrido atualização
+        }*/
+        return true;
     }
     
     

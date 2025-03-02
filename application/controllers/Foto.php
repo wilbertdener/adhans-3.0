@@ -155,6 +155,97 @@ class Foto extends CI_Controller {
         }
     }
 
+
+    public function teste(){
+        $role = $this->session->userdata();
+        $data['foto'] =$this->foto_model->get_fotos_by_id(1);
+        
+        $coordenadas = $data['foto'];
+        if ($coordenadas) {
+            // Converter para um formato JSON para fácil uso no JS
+            $data['coordenadas'] = json_encode([$coordenadas->Roi_dentro1, $coordenadas->Roi_dentro2, $coordenadas->Roi_dentro3, $coordenadas->Roi_fora1, $coordenadas->Roi_fora2, $coordenadas->Roi_fora3]);
+        } else {
+            $data['coordenadas'] = json_encode([]);  // Caso não haja coordenadas no banco
+        }
+        
+        
+        if($this->session->userdata('logged_in')){
+            $data['perfil'] =$role ;
+            $data['id_foto'] ='1' ;
+
+            $foto=$this->users_model->get_foto();
+            $this->load->view('includes/html_header',$foto);
+            $this->load->view('enviar_foto/teste.php',$data);
+            $this->load->view('includes/html_footer.php');
+            #$this->login_model->logout();
+            
+        }else{
+            redirect('login');
+        }
+       
+    }
+
+    public function rois_definidos() {
+        
+        // Recebe os dados enviados pelo AJAX
+        $post_data = json_decode(file_get_contents("php://input"), true);
+    
+        // Verifica se as coordenadas foram enviadas
+        if (!isset($post_data['coordenadas']) || empty($post_data['coordenadas'])) {
+            echo json_encode(["status" => "erro", "mensagem" => "Nenhuma coordenada recebida!"]);
+            return;
+        }
+
+        if (!isset($post_data['id_foto']) || empty($post_data['id_foto'])) {
+            echo json_encode(["status" => "erro", "mensagem" => "Nenhuma usuario vinculado!"]);
+            return;
+        }
+
+        $vetor_coordenadas = [];
+
+        // Percorre todas as coordenadas recebidas
+        foreach ($post_data['coordenadas'] as $coordenada) {
+            // Extrai "x" e "y"
+            $x = intval($coordenada['x']);
+            $y = intval($coordenada['y']);
+
+            // Cria a string no formato "x;y" e adiciona ao vetor
+            $vetor_coordenadas[] = $x . ';' . $y;
+        }
+        //dimensao: dimensao
+        $result = $this->foto_model->update_coordenadas_foto($post_data['id_foto'], $vetor_coordenadas,$post_data['dimensao']);
+        
+        echo json_encode(["status" => "sucesso", "mensagem" => "coordenadas salva"  ]);
+        //$post_data['coordenadas']
+        //$post_data['id_foto']
+    
+        // Pegando ID do usuário logado (se aplicável)
+        //$session = $this->session->userdata();
+        //$id_usuario = $session['id'];
+        /*
+        // Inserindo coordenadas no banco
+        foreach ($post_data['coordenadas'] as $coordenada) {
+            $data = [
+                "id_usuario" => $id_usuario,
+                "x" => $coordenada['x'],
+                "y" => $coordenada['y']
+            ];
+            $this->db->insert("coordenadas", $data);
+        }
+    
+        echo json_encode(["status" => "sucesso", "mensagem" => "Coordenadas salvas!"]);
+        
+        $date['perfil'] =$role ;
+        $date['id_foto'] ='1' ;
+
+        var_dump($data);
+        var_dump($id_foto);
+        $foto=$this->users_model->get_foto();
+        $this->load->view('includes/html_header',$foto);
+        $this->load->view('enviar_foto/teste.php',$date);
+        $this->load->view('includes/html_footer.php');*/
+    }
+
 }
 
 ?>
