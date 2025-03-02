@@ -1,0 +1,71 @@
+{
+  "name": "Adhans",
+  "short_name": "Adhans",
+  "description": "Aplicativo para o diagnóstico de hanseníase",
+  "start_url": "/adhans",
+  "display": "fullscreen",  // ou "standalone"
+  "background_color": "#ffffff",
+  "theme_color": "#B319D0",
+  "icons": [
+    {
+      "src": "/adhans/icone/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/adhans/icone/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+/*
+{
+  "protocol_handlers": [{"protocol":"mailto","url":"/newEmail?to=wilbert.costa@usp.br%s"}], 
+  "background_color": "#B319D0",
+  "description": "Aplicativo para o auxilio ao diagnóstico de hanseníase",
+  "dir": "ltr",
+  "gcm_sender_id": "103953800507",
+  "display": "fullscreen",
+  "name": "Adhans",
+  "orientation": "portrait",
+  "scope": "/",
+  "short_name": "Adhans",
+  "start_url": "/Adhans",
+  "theme_color": "#B319D0",
+  "categories": [
+    "education",
+    "health"
+  ],
+  "screenshots": [{
+    "src": "icone/icon-192x192.png",
+    "sizes": "192x192",
+    "type": "image/png",
+    "platform": "wide"
+  }],
+  "icons": [
+    { "src": "favicon-16x16.ico", "type": "image/x-icon", "sizes": "32x32" },
+    { "src": "favicon-32x32.ico", "type": "image/x-icon", "sizes": "32x32" },
+    {
+      "src": "icone/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "ADhans",
+      "short_name": "ADhans",
+      "description": "ADhans",
+      "url": "/Adhans/dashboard",
+      "icons": [
+        {
+          "src": "/adhans/icone/icon-512x512.png",
+          "sizes": "512x512"
+        }
+      ]
+    }
+  ],
+  "id": "561ca65e-9e40-11ee-8c90-0242ac120002"
+}*/

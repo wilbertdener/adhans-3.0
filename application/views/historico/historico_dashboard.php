@@ -27,6 +27,7 @@
         border: 2px solid;
         background: transparent; /* Torna o quadrado vazado */
     }
+    
 
     
 </style>

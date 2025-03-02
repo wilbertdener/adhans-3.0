@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
+  
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,60 +51,83 @@
     <script src="<?php echo base_url("assets/js/sweetalert2.all.min.js"); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
+    <link rel="manifest" href="/adhans/assets/json/manifest.json">  <!-- Referência ao manifesto -->
+    
 
+    <style>
+      /* Add in style file. */
+      body{
+        background-color: #B319D0; /* Cor de fundo (cinza claro) */
+      }
 
-      <style>
-        /* Add in style file. */
-        body{
-          background-color: #B319D0; /* Cor de fundo (cinza claro) */
+      .custom-confirm-btn {
+          background-color: #650086 !important; /* Cor personalizada */
+          border-color: #650086 !important;
+          color: white !important;
+      }
+      .custom-confirm-btn:hover {
+          background-color: #4b0063 !important; /* Cor mais escura no hover */
+          border-color: #4b0063 !important;
+      }
+
+      * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .custom-confirm-btn {
-            background-color: #650086 !important; /* Cor personalizada */
-            border-color: #650086 !important;
-            color: white !important;
+        html, body {
+            height: 100%;
         }
-        .custom-confirm-btn:hover {
-            background-color: #4b0063 !important; /* Cor mais escura no hover */
-            border-color: #4b0063 !important;
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-      </style>
+
+        main {
+            flex-grow: 1;  /* Faz o conteúdo crescer para ocupar o espaço disponível */
+        }
+
+        .footer {
+            display: flex;
+            align-items: center;
+            
+            background: #B319D0;
+            color: #FFFFFF;
+            font-size: 1rem;
+            padding: 10px;
+        }
+
+
+
+        
+    </style>
       
 
-    </head>
-    <body>
-      <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Bootstrap JS (com dependência do Popper.js) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <div class="main-panel" style="background-color: #B319D0">
-    <div class="content" >
+  
     
-        <div style="display: flex;  gap: 1rem;padding-left: 1rem;">
+      <!-- Bootstrap CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+      <!-- Bootstrap JS (com dependência do Popper.js) -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <div class="main-panel" style="background-color: #B319D0">
+        <div class="content" >
+          <head>
+          <div style="display: flex;  gap: 1rem;padding-left: 1rem;">
             <div class="flex-md-row">
-                <div class="profile-pic pb-3">
-                  <div class="row d-flex justify-content-center" style="width: 100%;">
-                    <label for="uploadInputperfil" id="imagePerfilLabel">
-                      <img id="previewperfil" src="<?php echo $foto?>" id="foto-perfil-menu" style="width: 7rem; height: 7rem; border-radius: 50%; object-fit: cover;" alt="Clique para enviar uma imagem">
-                        
-                    </label>
-                    <input type="file" id="uploadInputperfil" accept="image/*" style="display: none;" max-size="20480" >
-                  </div>
+              <div class="profile-pic pb-3">
+                <div class="row d-flex justify-content-center" style="width: 100%;">
+                  <label for="uploadInputperfil" id="imagePerfilLabel">
+                    <img id="previewperfil" src="<?php echo $foto?>" id="foto-perfil-menu" style="width: 7rem; height: 7rem; border-radius: 50%; object-fit: cover;" alt="Clique para enviar uma imagem">
+                      
+                  </label>
+                  <input type="file" id="uploadInputperfil" accept="image/*" style="display: none;" max-size="20480" >
                 </div>
+              </div>
             </div>
 
-            
-
-            
-
-
-
-
-
-
-
-
-              
             <div style="display: flex; flex-direction: column; line-height: 1; gap: 2px;">
                 <span style="color: #ffffff; font-size: 40px; font-family: Bookman Old Style, sans-serif; margin: 0;font-weight: bold;">ADHans</span>
                 <span style="color: #ffffff; font-size: 20px; font-family: Bookman Old Style, sans-serif; margin: 0;">
@@ -115,22 +138,18 @@
                 </span>
             </div>
 
-            
             <div class="col-2 col-md-3 d-flex justify-content-center align-items-center" style="display: flex; justify-content: center; align-items: center; ">
-            
-                <i class="fa-solid fa-right-from-bracket" onclick="sair()" style="color:#650086;margin-bottom:60px;border-radius: 90px; padding: 10px 20px;width: 90%;font-size: 35px; "></i>
-                
-                
+              <i class="fa-solid fa-right-from-bracket" onclick="sair()" style="color:#650086;margin-bottom:60px;border-radius: 90px; padding: 10px 20px;width: 90%;font-size: 35px; "></i> 
             </div>
 
-        </div>
+          </div>
 
+          <script src="<?php echo base_url('assets/js/jquery-3.6.4.min.js');?>"></script>
+          <!-- SweetAlert2 CDN -->
 
+          </head>
 
-        <script src="<?php echo base_url('assets/js/jquery-3.6.4.min.js');?>"></script>
-        <!-- SweetAlert2 CDN -->
-
-
+          <body>
 <script>
   function sair(){
     Swal.fire({
