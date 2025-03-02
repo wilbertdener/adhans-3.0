@@ -92,7 +92,7 @@
             <i class="fa-solid fa-camera abrirModal"style="color:#650086;margin-bottom:20px;border-radius: 50px; padding: 10px 20px;width: 90%;"
                 
                 data-nome="<?php echo $exame->nome_pac; ?>" 
-                data-data="<?php echo $exame->data; ?>" 
+                data-data="<?php echo date("d/m/Y", strtotime($exame->data)); ?>" 
                 data-diagnostico="Hanseníase: <?php if($exame->diagnostico){echo 'Positivo';}else{echo 'Negativo';} ?>" 
                 data-foto1="<?php echo $exame->id_foto1; ?>" 
                 data-foto2="<?php echo $exame->id_foto2; ?>" 
