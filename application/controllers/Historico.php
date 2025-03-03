@@ -33,7 +33,27 @@ class Historico extends CI_Controller {
          
     }
     
-
+    public function teste(){
+        #$this->login_model->logout();
+        
+        if($this->session->userdata('logged_in')){
+            $role = $this->session->userdata();
+            $data['exames'] =$this->historico_model->get_exames();
+            $data['fotos'] =$this->historico_model->get_fotos_by_usuario();
+            
+            
+            
+            $foto=$this->users_model->get_foto();
+            //$this->load->view('includes/html_header',$foto);
+            $this->load->view('historico/teste.html');
+            //$this->load->view('includes/html_footer.php');
+            
+            
+        }else{
+            redirect('login');
+        }
+         
+    }
 }
 
 ?>

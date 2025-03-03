@@ -55,9 +55,17 @@
 
         <div class="row justify-content-center align-items-center mb-1" style="color:#FFFFFF;font-size:250%;" >
         <div class="row d-flex justify-content-center mb-3" style="width: 100%;">
-            <h1  style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">O ADHans identificou um probabilidade de 76,7% de chance da lesão informada ter sido provocado pela hanseníase.
-            </h1>
-            <h1  style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Por favor, nos informa qual o seu diagnostico para otimizar o auxilio ao diagnostico do ADHans </h1>
+            <h1  style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">O ADHans identificou um probabilidade de diagnostico positivo para hanseniase de:</h1>
+            <h1 style="color:#FFFFFF; color: white;
+            font-size: 2rem; 
+             display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;"id="resultado"></h1>
+            
+            <h5  style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Por favor, nos informa qual o seu diagnostico para otimizar o auxilio ao diagnostico do ADHans </h5>
         </div>
         
 
@@ -124,6 +132,34 @@
     }
     
 
+    $(document).ready(function() {
+        //$('#enviar').click(function() {
+            var id = 10;//$('#id').val(); // Pegando o valor do campo ID
+            $.ajax({
+                url: "<?php echo base_url('index.php/executar-python'); ?>",
+                type: "POST",
+                data: { id: id },
+                dataType: "json", // Explicitamente indicando que esperamos uma resposta em JSON
+                success: function(response) {
+                    // Exibir a resposta inteira para verificar o que está vindo do PHP
+                    console.log(response);
+    
+                    // Se a resposta for JSON, vamos acessar o campo "resultado"
+                    if (response.resultado) {
+                        var resultado = response.resultado; // Acesso à propriedade "resultado"
+                        console.log("Resultado:", resultado); // Verificando no console
+                        // Exibir o resultado na página
+                        $('#resultado').html(resultado); // Exibe o valor do resultado no elemento #resultado
+                    } else {
+                        console.log("A chave 'resultado' não foi encontrada na resposta.");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log("Erro na requisição AJAX: " + error);
+                }
+            });
+        //});
+    });
 
 
 </script>
