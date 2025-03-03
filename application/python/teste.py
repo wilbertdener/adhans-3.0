@@ -1,6 +1,12 @@
 import sys
 
+from datetime import date
 
+#import mysql.connector
+#import sqlite3
+#import pandas as pd
+
+print(sys.executable)
 def probabilidade(id):
     try:
         # Conectar ao banco de dados
@@ -30,6 +36,17 @@ def probabilidade(id):
 if len(sys.argv) > 1:
     id = sys.argv[1]
     #result = probabilidade(id)
-    print("2%")  # Exibe o resultado para o PHP
+    #print("2%")  # Exibe o resultado para o PHP
 else:
     print('Erro: Nenhum ID fornecido.')
+
+
+def bd_test():
+    mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="adhans"
+    )
+
+
