@@ -2,10 +2,12 @@
 import mysql.connector
 from datetime import date
 
-import sqlite3
-import pandas as pd
+#import sqlite3
+#import pandas as pd
 from exames import *
 import cv2
+
+from mahotas import gaussian_filter
 import os
 
 mydb = mysql.connector.connect(
@@ -59,24 +61,51 @@ def cria_objetos(id):
 
 #pegar as fotos, coordenadas e dimensões no bd - [id, coordenadas, local, tempo, dimensao]
 foto1,foto2=cria_objetos(1)#cria objeto com todos os dados que preciso
-print(foto1.id_foto)
-print(foto2.id_foto)
+#print(foto1.id_foto)
+#print(foto2.id_foto)
     
 #imagem = cv2.imread(foto1.local)
 #altura, largura = imagem.shape[:2]
 #dimensao = f"{altura};{largura}"
-
+#print(cv2.__version__)
 
 caminho_absoluto = os.path.abspath(foto1.local)  # Converte para caminho absoluto
 print(caminho_absoluto)
 caminho = "http://192.168.137.1"+foto1.local
-print(caminho)
+caminho2 = "C:/wamp64/www/adhans/img/exames"+foto1.local
+caminho3 = "C:/wamp64/www/adhans/img/exames/1.jpg"
 
-if os.path.exists(caminho):
-    print("O arquivo existe!")
+img = cv2.imread(caminho3)
+if os.path.exists(caminho3):
+    print("Arquivo encontrado:", caminho3)
 else:
-    print("Erro: Arquivo não encontrado! Verifique o caminho.")
+    print("Erro: Arquivo NÃO encontrado! Verifique o caminho.")
+    
+if img is None:
+    print("Erro: OpenCV não conseguiu carregar a imagem!")
+else:
+    print("Imagem carregada com sucesso! Dimensões:", img.shape)
+#cv2.imshow('GEK', img) 
+import matplotlib.pyplot as plt
+if img is not None:
+    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Converte para RGB (corrige cores)
+    plt.imshow(img_rgb)
+    plt.axis("off")  # Remove os eixos
+    plt.show()
+else:
+    print("Erro: Imagem não carregada!")
+    
+if img is not None:
+    cv2.waitKey(1)  # Pequeno delay antes de exibir a janela
+    cv2.imshow('Imagem', img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+else:
+    print("Erro: Imagem não carregada!")
 
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
+#print(caminho)
 
 
 
