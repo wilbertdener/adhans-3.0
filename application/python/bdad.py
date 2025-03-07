@@ -61,8 +61,9 @@ def cria_objetos(id):
 
 #pegar as fotos, coordenadas e dimensões no bd - [id, coordenadas, local, tempo, dimensao]
 foto1,foto2=cria_objetos(1)#cria objeto com todos os dados que preciso
-#print(foto1.id_foto)
-#print(foto2.id_foto)
+print(foto1.id_foto)
+print(foto2.id_foto)
+print(foto1)
     
 #imagem = cv2.imread(foto1.local)
 #altura, largura = imagem.shape[:2]
@@ -70,39 +71,36 @@ foto1,foto2=cria_objetos(1)#cria objeto com todos os dados que preciso
 #print(cv2.__version__)
 
 caminho_absoluto = os.path.abspath(foto1.local)  # Converte para caminho absoluto
+print("caminho absoluto:")
 print(caminho_absoluto)
-caminho = "http://192.168.137.1"+foto1.local
-caminho2 = "C:/wamp64/www/adhans/img/exames"+foto1.local
-caminho3 = "C:/wamp64/www/adhans/img/exames/1.jpg"
 
-img = cv2.imread(caminho3)
-if os.path.exists(caminho3):
-    print("Arquivo encontrado:", caminho3)
-else:
-    print("Erro: Arquivo NÃO encontrado! Verifique o caminho.")
-    
-if img is None:
-    print("Erro: OpenCV não conseguiu carregar a imagem!")
-else:
-    print("Imagem carregada com sucesso! Dimensões:", img.shape)
-#cv2.imshow('GEK', img) 
-import matplotlib.pyplot as plt
-if img is not None:
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Converte para RGB (corrige cores)
-    plt.imshow(img_rgb)
-    plt.axis("off")  # Remove os eixos
-    plt.show()
-else:
-    print("Erro: Imagem não carregada!")
-    
-if img is not None:
-    cv2.waitKey(1)  # Pequeno delay antes de exibir a janela
-    cv2.imshow('Imagem', img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-else:
-    print("Erro: Imagem não carregada!")
+caminho = "C:/wamp64/www"+foto1.local
+caminho2 = "C:/wamp64/www"+foto2.local
 
+img = cv2.imread(caminho)
+img2 = cv2.imread(caminho2)
+
+dimensao = str(img.shape[1])+";"+str(img.shape[0])
+dimensao2 = str(img2.shape[1])+";"+str(img2.shape[0])
+#if img is not None:
+#    cv2.waitKey(1)  # Pequeno delay antes de exibir a janela
+#    cv2.imshow('Imagem', img)
+#    cv2.waitKey(0)
+#    cv2.destroyAllWindows()
+#else:
+#    print("Erro: Imagem não carregada!")
+
+print("Dimensao registrada")
+print(foto1.dimensao)
+print("coordenadas registradas")
+print(foto1.coordenadas)
+print("Dimensao do arquivo 1")
+print(dimensao)
+
+
+
+
+#print(dimensao2)
 #cv2.waitKey(0)
 #cv2.destroyAllWindows()
 #print(caminho)
@@ -110,7 +108,7 @@ else:
 
 
 #converter as coordenadas com as dimensões
-def corrigir_coordenadas(dimensao_antiga, dimensao_nova, coordenadas):
+def corrigir_coordenadas(dimensao_antiga, dimensao_nova, coordenadas, lado):
     largura_antiga, altura_antiga = map(int, dimensao_antiga.split(";"))
     largura_nova, altura_nova = map(int, dimensao_nova.split(";"))
     
@@ -124,8 +122,38 @@ def corrigir_coordenadas(dimensao_antiga, dimensao_nova, coordenadas):
         novo_y = round(y * fator_altura)
         coordenadas_corrigidas.append(f"{novo_x};{novo_y}")
     
-    return coordenadas_corrigidas
+    # Corrigir o lado do quadrado (média dos fatores de escala)
+    fator_escala = (fator_largura + fator_altura) / 2
+    novo_lado = round(lado * fator_escala)
 
+    return coordenadas_corrigidas, novo_lado
+
+
+def desenha(caminho,coordenadas, lado):
+  
+
+  # Carregar a imagem
+  img = cv2.imread(caminho)
+
+  # Verificar se a imagem foi carregada corretamente
+  if img is None:
+      print("Erro: Imagem não encontrada!")
+  else:
+      # Converter coordenadas para inteiros e desenhar quadrados
+      for coord in coordenadas:
+          x, y = map(int, coord.split(';'))
+          cv2.rectangle(img, (x, y), (x + lado, y + lado), (0, 0, 255), 2)  # Quadrado vermelho
+
+      # Exibir a imagem com os quadrados desenhados
+      cv2.imshow("Imagem com Quadrados", img)
+      cv2.waitKey(0)
+      cv2.destroyAllWindows()
+
+print("coordenadas calculadas")
+nova_coo,novo_lado = corrigir_coordenadas(foto1.dimensao,dimensao,foto1.coordenadas,10)
+print(nova_coo)
+print(novo_lado)
+desenha(caminho,nova_coo, novo_lado)
 #pegar o valor de pixel mais comun naquelas coordenadas
 #tacar na tabela - pixel_comum
 

@@ -6,7 +6,7 @@ from datetime import date
 #import sqlite3
 #import pandas as pd
 
-print(sys.executable)
+#print(sys.executable)
 def probabilidade(id):
     try:
         # Conectar ao banco de dados
@@ -48,5 +48,6 @@ def bd_test():
     password="",
     database="adhans"
     )
-
+    
+print("76%")
 
