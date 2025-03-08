@@ -134,7 +134,7 @@
 
     $(document).ready(function() {
         //$('#enviar').click(function() {
-            var id = 10;//$('#id').val(); // Pegando o valor do campo ID
+            var id = <?php echo $foto->id?>; // Pegando o valor do campo ID
             $.ajax({
                 url: "<?php echo base_url('index.php/executar-python'); ?>",
                 type: "POST",

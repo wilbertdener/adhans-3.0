@@ -1,14 +1,11 @@
        
-import mysql.connector
-from datetime import date
 
-#import sqlite3
-#import pandas as pd
+#from datetime import date
+
 from exames import *
-import cv2
 
-from mahotas import gaussian_filter
-import os
+import cv2
+import mysql.connector
 from collections import Counter
 
 mydb = mysql.connector.connect(
@@ -237,7 +234,7 @@ def main(id):
   T = abs(int(F1_R)-int(F2_R))
   
   prob = get_prob()
-  print(prob)
+  
   total_exames = prob[0]
   diag_pos_med = prob[1]
   diag_pos_sis_med = prob[2]
@@ -247,12 +244,12 @@ def main(id):
   if(F1_S<40):
     if(T>=10):
       atualizar_diagnostico_sistema(id, 1)
-      print("id: "+str(id)+" recebeu "+str(1)) 
+       
       print("Vermelhidão com diferença relavante, pode ser hanseniase")
       #sistema sim/medico sim
       #(sistema= medico)/ total -acertividade do sistema
       if(diag_pos_med!=0  ):
-        print("Probabilidade: "+ str(diag_pos_sis_med/diag_pos_med))
+        
         print("Probabilidade: " + str(round((diag_pos_sis_med / diag_pos_med) * 100, 1)) + "%")
         print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%") 
       else:
@@ -263,7 +260,7 @@ def main(id):
       
     else:
       atualizar_diagnostico_sistema(id, 0)
-      print("id: "+str(id)+" recebeu "+str(0)) 
+       
       print("Vermelhidão sem diferença relavante, a lesão pode não ser hanseniase nem vitigo") 
       #sistema não/medico não
       #(sistema= medico)/ total -acertividade do sistema
@@ -276,7 +273,7 @@ def main(id):
         print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%") 
   else:
     atualizar_diagnostico_sistema(id, 0)
-    print("id: "+str(id)+" recebeu "+str(0)) 
+    
     print("Lesão muito clara, pode não ser hanseniase, talvez vitiligo")  
     if(diag_pos_med!=0):
       print("Probabilidade: " + str(round((1 - (diag_pos_sis_med / diag_pos_med)) * 100, 1)) + "%")
@@ -306,7 +303,7 @@ def main(id):
 
   
   
-main(1)
+#main(1)
 
 
 
