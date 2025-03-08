@@ -26,7 +26,8 @@ def get_prob():
       SUM(CASE WHEN diagnostico = 1 THEN 1 ELSE 0 END) AS total_diagnostico,
       SUM(CASE WHEN diagnostico_sistema = 1 AND diagnostico = 1 THEN 1 ELSE 0 END) AS total_diagnostico_sistema,  -- Aqui foi a mudança
       SUM(CASE WHEN diagnostico = diagnostico_sistema THEN 1 ELSE 0 END) AS total_acertos
-  FROM exames;
+  FROM exames
+  WHERE diagnostico IS NOT NULL AND diagnostico_sistema IS NOT NULL;
   """
   mycursor.execute(sql)
   myresult = mycursor.fetchone()  # Retorna (total_exames, total_diagnostico, total_diagnostico_sistema, total_acertos)
@@ -119,6 +120,13 @@ def desenha(caminho,coordenadas, lado):
       cv2.waitKey(0)
       cv2.destroyAllWindows()
 
+def atualizar_diagnostico_sistema( exame_id, valor):
+  mycursor = mydb.cursor()
+  sql = "UPDATE exames SET diagnostico_sistema = %s WHERE id = %s"
+  val = (valor,exame_id,)
+  
+  mycursor.execute(sql, val)
+  mydb.commit()  # Confirma a atualização no banco
 
 
 
@@ -235,46 +243,48 @@ def main(id):
   diag_pos_sis_med = prob[2]
   total_med_sis = prob[3]
  
-
-  print("Total de exames: "+str(total_exames))
-  print("Total de positivo med: "+str(diag_pos_med))
-  print("Total de positivo sis e med:  "+str(diag_pos_sis_med))
-  print("Total de med=sis:  "+str(total_med_sis))
   
   if(F1_S<40):
     if(T>=10):
+      atualizar_diagnostico_sistema(id, 1)
+      print("id: "+str(id)+" recebeu "+str(1)) 
       print("Vermelhidão com diferença relavante, pode ser hanseniase")
       #sistema sim/medico sim
       #(sistema= medico)/ total -acertividade do sistema
       if(diag_pos_med!=0  ):
         print("Probabilidade: "+ str(diag_pos_sis_med/diag_pos_med))
-        print("Acertividade: "+ str(total_med_sis/total_exames))
+        print("Probabilidade: " + str(round((diag_pos_sis_med / diag_pos_med) * 100, 1)) + "%")
+        print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%") 
       else:
         print("Positivo med: "+ str(diag_pos_sis_med))
         print("Positivo med: "+ str(diag_pos_med))
-        print("Acertividade: "+ str(total_med_sis/total_exames))  
+        print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%")  
      
       
     else:
+      atualizar_diagnostico_sistema(id, 0)
+      print("id: "+str(id)+" recebeu "+str(0)) 
       print("Vermelhidão sem diferença relavante, a lesão pode não ser hanseniase nem vitigo") 
       #sistema não/medico não
       #(sistema= medico)/ total -acertividade do sistema
       if(diag_pos_med!=0  ):
-        print("Probabilidade: "+ str(1-(diag_pos_sis_med/diag_pos_med)))
-        print("Acertividade: "+ str(total_med_sis/total_exames))
+        print("Probabilidade: " + str(round((1 - (diag_pos_sis_med / diag_pos_med)) * 100, 1)) + "%")
+        print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%") 
       else:
         print("Positivo med: "+ str(diag_pos_sis_med))
         print("Positivo med: "+ str(diag_pos_med))
-        print("Acertividade: "+ str(total_med_sis/total_exames))  
+        print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%") 
   else:
+    atualizar_diagnostico_sistema(id, 0)
+    print("id: "+str(id)+" recebeu "+str(0)) 
     print("Lesão muito clara, pode não ser hanseniase, talvez vitiligo")  
     if(diag_pos_med!=0):
-      print("Probabilidade: "+ str(1-(diag_pos_sis_med/diag_pos_med)))
-      print("Acertividade: "+ str(total_med_sis/total_exames))
+      print("Probabilidade: " + str(round((1 - (diag_pos_sis_med / diag_pos_med)) * 100, 1)) + "%")
+      print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%") 
     else:
       print("Positivo med: "+ str(diag_pos_sis_med))
       print("Positivo med: "+ str(diag_pos_med))
-      print("Acertividade: "+ str(total_med_sis/total_exames))    
+      print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%")   
   
   
   
@@ -296,7 +306,7 @@ def main(id):
 
   
   
-main(3)
+main(1)
 
 
 
