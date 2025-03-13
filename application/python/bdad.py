@@ -7,6 +7,7 @@ from exames import *
 import cv2
 import mysql.connector
 from collections import Counter
+import json
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -240,52 +241,62 @@ def main(id):
   diag_pos_sis_med = prob[2]
   total_med_sis = prob[3]
  
-  
+  #return [total_exames,diag_pos_med,diag_pos_sis_med,total_med_sis]
   if(F1_S<40):
     if(T>=10):
       atualizar_diagnostico_sistema(id, 1)
        
-      print("Vermelhidão com diferença relavante, pode ser hanseniase")
+      
       #sistema sim/medico sim
       #(sistema= medico)/ total -acertividade do sistema
       if(diag_pos_med!=0  ):
+        data = {"titulo": "Vermelhidão com diferença relavante, pode ser hanseniase", 
+                "Probabilidade": str(round((diag_pos_sis_med / diag_pos_med) * 100, 1)) + "%", 
+                "Acertividade": str(round((total_med_sis/total_exames)*100,1)) + "%", "id":id}
         
-        print("Probabilidade: " + str(round((diag_pos_sis_med / diag_pos_med) * 100, 1)) + "%")
-        print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%") 
+        
       else:
-        print("Positivo med: "+ str(diag_pos_sis_med))
-        print("Positivo med: "+ str(diag_pos_med))
-        print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%")  
+        data = {"titulo": "Vermelhidão com diferença relavante, pode ser hanseniase", 
+                "Probabilidade": "Positivo med: "+ str(diag_pos_sis_med) + "Positivo med: "+ str(diag_pos_med), 
+                "Acertividade": str(round((total_med_sis/total_exames)*100,1)) + "%", "id":id}
+         
      
       
     else:
       atualizar_diagnostico_sistema(id, 0)
-       
-      print("Vermelhidão sem diferença relavante, a lesão pode não ser hanseniase nem vitigo") 
+      
+      
       #sistema não/medico não
       #(sistema= medico)/ total -acertividade do sistema
       if(diag_pos_med!=0  ):
-        print("Probabilidade: " + str(round((1 - (diag_pos_sis_med / diag_pos_med)) * 100, 1)) + "%")
-        print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%") 
+        data = {"titulo": "Vermelhidão sem diferença relavante, a lesão pode não ser hanseniase nem vitigo", 
+            "Probabilidade": str(round((1 - (diag_pos_sis_med / diag_pos_med)) * 100, 1)) + "%", 
+            "Acertividade": str(round((total_med_sis/total_exames)*100,1)) + "%", "id":id}
+        
       else:
-        print("Positivo med: "+ str(diag_pos_sis_med))
-        print("Positivo med: "+ str(diag_pos_med))
-        print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%") 
+        data = {"titulo": "Vermelhidão sem diferença relavante, a lesão pode não ser hanseniase nem vitigo", 
+            "Probabilidade": "Positivo med: "+ str(diag_pos_sis_med) + "Positivo med: "+ str(diag_pos_med), 
+            "Acertividade": str(round((total_med_sis/total_exames)*100,1)) + "%", "id":id}
+        
   else:
     atualizar_diagnostico_sistema(id, 0)
     
-    print("Lesão muito clara, pode não ser hanseniase, talvez vitiligo")  
     if(diag_pos_med!=0):
-      print("Probabilidade: " + str(round((1 - (diag_pos_sis_med / diag_pos_med)) * 100, 1)) + "%")
-      print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%") 
+      data = {"titulo": "Lesão muito clara, pode não ser hanseniase, talvez vitiligo", 
+            "Probabilidade": str(round((1 - (diag_pos_sis_med / diag_pos_med)) * 100, 1)) + "%", 
+            "Acertividade": str(round((total_med_sis/total_exames)*100,1)) + "%", "id":id}
+      
+      
     else:
-      print("Positivo med: "+ str(diag_pos_sis_med))
-      print("Positivo med: "+ str(diag_pos_med))
-      print("Acertividade: " + str(round((total_med_sis/total_exames)*100,1)) + "%")   
+      data = {"titulo": "Lesão muito clara, pode não ser hanseniase, talvez vitiligo", 
+        "Probabilidade": str(diag_pos_sis_med) + "Positivo med: "+ str(diag_pos_med), 
+        "Acertividade": str(round((total_med_sis/total_exames)*100,1)) + "%", "id":id}
+        
   
   
   
-  
+  json_string = json.dumps(data)
+  return json_string
   
   
   #fazer a formula |antes - depois|
@@ -304,8 +315,6 @@ def main(id):
   
   
 #main(1)
-
-
 
 
 

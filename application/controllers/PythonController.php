@@ -11,18 +11,33 @@ class PythonController extends CI_Controller {
         try {
             // Pegando o id enviado via POST
             $id = $this->input->post('id');
+
+            //putenv('PYTHONPATH=C:\\Program Files\\Python310\\Lib\\site-packages');
             
             // Caminhos para o Python e o script
-            $pythonPath = '"C:\\Program Files\\Python310\\python.exe"'; // Caminho com aspas duplas
+            /* $pythonPath = '"C:\\Program Files\\Python310\\python.exe"'; // Caminho com aspas duplas
             $pythonScript = APPPATH . 'python/teste.py';  // Caminho do seu script Python
     
             // Gerar comando para rodar o script Python
-            $command = $pythonPath . " " . escapeshellarg($pythonScript) . " " . escapeshellarg($id);
+            $command = "PYTHONPATH=C:\\Program Files\\Python310\\Lib\\site-packages " . $pythonPath . " " . escapeshellarg($pythonScript) . " " . escapeshellarg($id);
+ */
+
+            $pythonPath = '"C:\\Users\\Wilbert\\anaconda3\\python.exe"'; 
+            $pythonScript = APPPATH . 'python/teste.py';
+            $pythonLibPath = "C:\\Users\\Wilbert\\anaconda3\\Lib\\site-packages";//"C:\\Program Files\\Python310\\Lib\\site-packages"; //C:\\Users\\Wilbert\\anaconda3\\Lib\\site-packages
+
+            $command = "set PYTHONPATH=" . escapeshellarg($pythonLibPath) . " && " . $pythonPath . " " . escapeshellarg($pythonScript) . " " . escapeshellarg($id);
+
             // Logando o comando para depuração
             log_message('debug', 'Comando Python: ' . $command);
     
             // Executar o script e capturar a saída
             exec($command, $output, $return_var);
+
+            //echo "Saída do comando:\n";
+            //print_r($output); // Captura stdout + stderr
+
+            //echo "\nCódigo de retorno: $return_var\n";
     
             // Verificar se ocorreu erro ao executar
             if ($return_var !== 0) {

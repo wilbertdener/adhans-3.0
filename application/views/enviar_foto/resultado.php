@@ -64,6 +64,22 @@
             font-weight: bold;
             margin: 0;
             text-align: center;"id="resultado"></h1>
+            <h1 style="color:#FFFFFF; color: white;
+            font-size: 2rem; 
+             display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;"id="Probabilidade"></h1>
+            <h1 style="color:#FFFFFF; color: white;
+            font-size: 2rem; 
+             display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;"id="Acertividade"></h1>
             
             <h5  style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Por favor, nos informa qual o seu diagnostico para otimizar o auxilio ao diagnostico do ADHans </h5>
         </div>
@@ -136,7 +152,7 @@
         //$('#enviar').click(function() {
             var id = <?php echo $foto->id?>; // Pegando o valor do campo ID
             $.ajax({
-                url: "<?php echo base_url('index.php/executar-python'); ?>",
+                url: "<?php echo base_url('index.php/pythoncontroller/executar'); ?>",
                 type: "POST",
                 data: { id: id },
                 dataType: "json", // Explicitamente indicando que esperamos uma resposta em JSON
@@ -146,16 +162,30 @@
     
                     // Se a resposta for JSON, vamos acessar o campo "resultado"
                     if (response.resultado) {
-                        var resultado = response.resultado; // Acesso à propriedade "resultado"
-                        console.log("Resultado:", resultado); // Verificando no console
-                        // Exibir o resultado na página
-                        $('#resultado').html(resultado); // Exibe o valor do resultado no elemento #resultado
+                        try {
+                            var resultado = response.resultado;
+
+                            // Se for uma string JSON, precisamos converter para um objeto
+                            if (typeof resultado === "string") {
+                                resultado = JSON.parse(resultado);
+                            }
+
+                            console.log("Resultado:", resultado);
+
+                            // Exibir o resultado de forma segura no HTML
+                            $('#resultado').text(resultado.titulo); // Ajuste conforme necessário
+                            $('#Probabilidade').text(resultado.Probabilidade);
+                            $('#Acertividade').text(resultado.Acertividade);
+                        } catch (error) {
+                            console.error("Erro ao processar o JSON:", error);
+                        }
                     } else {
                         console.log("A chave 'resultado' não foi encontrada na resposta.");
                     }
+
                 },
                 error: function(xhr, status, error) {
-                    console.log("Erro na requisição AJAX: " + error);
+                    console.log(error);
                 }
             });
         //});
