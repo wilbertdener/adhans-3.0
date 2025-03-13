@@ -66,7 +66,7 @@ class Foto extends CI_Controller {
         if($this->session->userdata('logged_in')){
             $data['perfil'] =$role ;
             $data['foto'] =$this->foto_model->get_exame_by_id_foto($foto);
-            var_dump( $data['foto']);
+            //var_dump( $data['foto']);
             
             
             $foto=$this->users_model->get_foto();

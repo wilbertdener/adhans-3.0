@@ -56,14 +56,16 @@
         <div class="row justify-content-center align-items-center mb-1" style="color:#FFFFFF;font-size:250%;" >
         <div class="row d-flex justify-content-center mb-3" style="width: 100%;">
             <h1  style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">O ADHans identificou um probabilidade de diagnostico positivo para hanseniase de:</h1>
-            <h1 style="color:#FFFFFF; color: white;
-            font-size: 2rem; 
+            <br><br>
+            <h3 style="color:#FFFFFF; color: white;
+            font-size: 1.5rem; 
              display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
             margin: 0;
-            text-align: center;"id="resultado"></h1>
+            text-align: center;"id="resultado"></h3>
+            <br><br>
             <h1 style="color:#FFFFFF; color: white;
             font-size: 2rem; 
              display: flex;
@@ -72,6 +74,7 @@
             font-weight: bold;
             margin: 0;
             text-align: center;"id="Probabilidade"></h1>
+            <br>
             <h1 style="color:#FFFFFF; color: white;
             font-size: 2rem; 
              display: flex;
@@ -80,6 +83,7 @@
             font-weight: bold;
             margin: 0;
             text-align: center;"id="Acertividade"></h1>
+            <br><br>
             
             <h5  style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Por favor, nos informa qual o seu diagnostico para otimizar o auxilio ao diagnostico do ADHans </h5>
         </div>
@@ -174,8 +178,8 @@
 
                             // Exibir o resultado de forma segura no HTML
                             $('#resultado').text(resultado.titulo); // Ajuste conforme necessário
-                            $('#Probabilidade').text(resultado.Probabilidade);
-                            $('#Acertividade').text(resultado.Acertividade);
+                            $('#Probabilidade').text("Probabilidade:"+resultado.Probabilidade);
+                            $('#Acertividade').text("Acertividade:"+resultado.Acertividade);
                         } catch (error) {
                             console.error("Erro ao processar o JSON:", error);
                         }
