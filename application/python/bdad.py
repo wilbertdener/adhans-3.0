@@ -126,9 +126,18 @@ def atualizar_diagnostico_sistema( exame_id, valor):
   mycursor.execute(sql, val)
   mydb.commit()  # Confirma a atualização no banco
 
+def atualizar_pixel_comum(id_foto, rd, rf, sd, sf):
+    mycursor = mydb.cursor()
+    sql = """
+        INSERT INTO pixel_comum (id_foto, Rdentro, Rfora, Sdentro, Sfora)
+        VALUES (%s, %s, %s, %s, %s)
+    """
+    val = (id_foto, rd, rf, sd, sf)
+    
+    mycursor.execute(sql, val)
+    mydb.commit() # Confirma a atualização no banco
 
-
-def coleta_canais(img, cood,lado):
+def coleta_canais(img, cood,lado,id):
   #hsv1 = cv2.cvtColor(roi1, cv2.COLOR_BGR2HSV)
   #hsv2 = cv2.cvtColor(roi2, cv2.COLOR_BGR2HSV)
   #hsv3 = cv2.cvtColor(roi3, cv2.COLOR_BGR2HSV)
@@ -180,6 +189,7 @@ def coleta_canais(img, cood,lado):
   canalS1_comum = Counter(canalS1).most_common(1)[0][0]
   canalS2_comum = Counter(canalS2).most_common(1)[0][0]
   #canalRD2, canalHD2,canalRF2, canalHF2
+  atualizar_pixel_comum(id, canalR1_comum, canalR2_comum, canalS1_comum, canalS2_comum)
   return canalR1_comum,canalS1_comum,canalR2_comum,canalS2_comum
       
 #print(coleta_canais(roidentro1[0]))     
@@ -210,7 +220,7 @@ def main(id):
   img1 = cv2.imread(caminho)
   dimensao1 = str(img1.shape[1])+";"+str(img1.shape[0])
   nova_coo1,novo_lado1 = corrigir_coordenadas(foto1.dimensao,dimensao1,foto1.coordenadas,10)
-  canalRD1, canalSD1,canalRF1, canalSF1 = coleta_canais(img1, nova_coo1,novo_lado1)
+  canalRD1, canalSD1,canalRF1, canalSF1 = coleta_canais(img1, nova_coo1,novo_lado1,foto1.id)
   
 
 
@@ -219,7 +229,7 @@ def main(id):
   dimensao2 = str(img2.shape[1])+";"+str(img2.shape[0])
   nova_coo2,novo_lado2 = corrigir_coordenadas(foto2.dimensao,dimensao2,foto2.coordenadas,10)
   
-  canalRD2, canalSD2,canalRF2, canalSF2 = coleta_canais(img2, nova_coo2,novo_lado2)
+  canalRD2, canalSD2,canalRF2, canalSF2 = coleta_canais(img2, nova_coo2,novo_lado2,foto2.id)
   
 
   #print(str(imagemffff.shape[1])+";"+str(imagemffff.shape[0]))

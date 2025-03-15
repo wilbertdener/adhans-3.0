@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 02-Mar-2025 às 03:17
+-- Tempo de geração: 15-Mar-2025 às 21:10
 -- Versão do servidor: 5.7.36
 -- versão do PHP: 7.4.26
 
@@ -32,12 +32,14 @@ CREATE TABLE IF NOT EXISTS `exames` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(10) NOT NULL,
   `nome_pac` varchar(100) DEFAULT NULL,
-  `diagnostico` tinyint(1) NOT NULL,
+  `diagnostico` tinyint(1) DEFAULT NULL,
   `data` date NOT NULL,
   `id_foto1` int(10) NOT NULL,
   `id_foto2` int(10) NOT NULL,
+  `probabilidade` varchar(10) DEFAULT NULL,
+  `diagnostico_sistema` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -58,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `fotos` (
   `tempo` tinyint(1) DEFAULT NULL,
   `dimensao` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -86,6 +88,23 @@ INSERT INTO `imgs` (`id`, `local`, `nome`, `descricao`, `area`, `topico`, `metod
 (3, '/adhans/img/sistema/foto1.png\n', 'foto1', '', '', NULL, NULL),
 (2, '/adhans/img/sistema/foto2.png\n', 'foto2', '', '', NULL, NULL),
 (1, '/adhans/img/sistema/logo.bmp\n', 'logo', '', '', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pixel_comum`
+--
+
+DROP TABLE IF EXISTS `pixel_comum`;
+CREATE TABLE IF NOT EXISTS `pixel_comum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_foto` int(11) NOT NULL,
+  `Rdentro` int(11) NOT NULL,
+  `Rfora` int(11) NOT NULL,
+  `Sdentro` int(11) NOT NULL,
+  `Sfora` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
