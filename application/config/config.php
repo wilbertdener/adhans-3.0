@@ -24,7 +24,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 #$config['base_url'] = 'http://localhost/adhans';
-$config['base_url'] = 'http://192.168.137.1/adhans';
+#$config['base_url'] = 'http://192.168.137.1/adhans';
+$config['base_url'] = 'https://ada7-2804-10f8-453a-cd00-7065-dfed-b2c8-96b8.ngrok-free.app/adhans';
+
 
 
 /*

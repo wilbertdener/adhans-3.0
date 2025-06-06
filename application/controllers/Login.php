@@ -75,7 +75,7 @@ class Login extends CI_Controller {
         $dados = array(
             "alerta" => $alerta
 		);
-		$this->load->view('includes/html_header');
+		$this->load->view('includes/html_header_login');
         $this->load->view('login', $dados);
     }
 

@@ -112,7 +112,7 @@ class PythonController extends CI_Controller {
     }
 
 
-    public function executar22() {
+    public function executar1122() {
         try {
             // Pegando o id enviado via POST
             $id = $this->input->post('id');
@@ -154,7 +154,7 @@ class PythonController extends CI_Controller {
         }
     }
     
-    public function executar422() {
+    public function executar22() {
         header('Content-Type: application/json');
         
         try {
