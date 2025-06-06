@@ -61,4 +61,6 @@
         
         </div>
 
-    
+        <h1> 
+        <?php #echo lang('concluir'); ?>
+    </h1>

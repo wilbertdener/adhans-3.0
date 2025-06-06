@@ -189,7 +189,8 @@ def coleta_canais(img, cood,lado,id):
   canalS1_comum = Counter(canalS1).most_common(1)[0][0]
   canalS2_comum = Counter(canalS2).most_common(1)[0][0]
   #canalRD2, canalHD2,canalRF2, canalHF2
-  atualizar_pixel_comum(id, canalR1_comum, canalR2_comum, canalS1_comum, canalS2_comum)
+  #atualizar_pixel_comum(id, canalR1_comum, canalR2_comum, canalS1_comum, canalS2_comum) tirado por defeito
+  print("rodou")
   return canalR1_comum,canalS1_comum,canalR2_comum,canalS2_comum
       
 #print(coleta_canais(roidentro1[0]))     
@@ -208,6 +209,7 @@ def coleta_canais(img, cood,lado,id):
 #salvar na tabela exames - probabilidade / diagnostico_sistema
 
 def main(id):
+  
   #pegar as fotos, coordenadas e dimensões no bd - [id, coordenadas, local, tempo, dimensao]
   foto1,foto2=cria_objetos(id)#cria objeto com todos os dados que preciso
 
@@ -305,7 +307,7 @@ def main(id):
   
   
   
-  json_string = json.dumps(data)
+  json_string = json.dumps(data7)
   return json_string
   
   

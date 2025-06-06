@@ -64,7 +64,7 @@
             align-items: center;
             font-weight: bold;
             margin: 0;
-            text-align: center;"id="resultado"></h3>
+            text-align: center;"id="resultado">Vermelhidão com diferença relavante entre dentro e fora da lesão </h3>
             <br><br>
             <h1 style="color:#FFFFFF; color: white;
             font-size: 2rem; 
@@ -73,7 +73,7 @@
             align-items: center;
             font-weight: bold;
             margin: 0;
-            text-align: center;"id="Probabilidade"></h1>
+            text-align: center;"id="Probabilidade">Probabilidade : 87%</h1>
             <br>
             <h1 style="color:#FFFFFF; color: white;
             font-size: 2rem; 
@@ -82,7 +82,7 @@
             align-items: center;
             font-weight: bold;
             margin: 0;
-            text-align: center;"id="Acertividade"></h1>
+            text-align: center;"id="Acertividade"> Acertividade : 87%</h1>
             <br><br>
             
             <h5  style="color:#FFFFFF; font-size:2rem justify-content: center; align-items: center;">Por favor, nos informa qual o seu diagnostico para otimizar o auxilio ao diagnostico do ADHans </h5>
@@ -153,47 +153,50 @@
     
 
     $(document).ready(function() {
-        //$('#enviar').click(function() {
-            var id = <?php echo $foto->id?>; // Pegando o valor do campo ID
-            $.ajax({
-                url: "<?php echo base_url('index.php/pythoncontroller/executar'); ?>",
-                type: "POST",
-                data: { id: id },
-                dataType: "json", // Explicitamente indicando que esperamos uma resposta em JSON
-                success: function(response) {
-                    // Exibir a resposta inteira para verificar o que está vindo do PHP
-                    console.log(response);
+    var id = <?php echo $foto->id; ?>;
     
-                    // Se a resposta for JSON, vamos acessar o campo "resultado"
-                    if (response.resultado) {
-                        try {
-                            var resultado = response.resultado;
-
-                            // Se for uma string JSON, precisamos converter para um objeto
-                            if (typeof resultado === "string") {
-                                resultado = JSON.parse(resultado);
-                            }
-
-                            console.log("Resultado:", resultado);
-
-                            // Exibir o resultado de forma segura no HTML
-                            $('#resultado').text(resultado.titulo); // Ajuste conforme necessário
-                            $('#Probabilidade').text("Probabilidade:"+resultado.Probabilidade);
-                            $('#Acertividade').text("Acertividade:"+resultado.Acertividade);
-                        } catch (error) {
-                            console.error("Erro ao processar o JSON:", error);
-                        }
-                    } else {
-                        console.log("A chave 'resultado' não foi encontrada na resposta.");
-                    }
-
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
+    $.ajax({
+        url: "<?php echo base_url('index.php/pythoncontroller/executar22'); ?>",
+        type: "POST",
+        data: { id: 10 },
+        dataType: "json",
+        success: function(response) {
+            console.log("Resposta completa:", response);
+            
+            if (response.resultado) {
+                try {
+                    var resultado = response.resultado;
+                    
+                    // Atualiza a interface
+                    $('#resultado').text(resultado.titulo);
+                    $('#Probabilidade').text("Probabilidade: " + resultado.Probabilidade);
+                    $('#Acertividade').text("Acertividade: " + resultado.Acertividade);
+                    
+                    console.log("Dados processados:", resultado);
+                } catch (error) {
+                    console.error("Erro ao processar resposta:", error);
+                    alert("Erro ao processar os dados recebidos");
                 }
-            });
-        //});
+            } else if (response.erro) {
+                console.error("Erro no servidor:", response.erro);
+                alert("Erro: " + response.erro);
+            }
+        },
+        error: function(xhr, status, error) {
+            var errorMsg = "Erro na comunicação com o servidor";
+            try {
+                var serverResponse = JSON.parse(xhr.responseText);
+                if (serverResponse.erro) {
+                    errorMsg = serverResponse.erro;
+                }
+            } catch (e) {
+                errorMsg = xhr.responseText || error;
+            }
+            console.error("Erro AJAX:", status, errorMsg);
+            alert(errorMsg);
+        }
     });
+});
 
 
 </script>

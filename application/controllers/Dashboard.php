@@ -8,6 +8,7 @@ class Dashboard extends CI_Controller {
         $this->load->model('login_model');
         $this->load->model('users_model');
         //$this->load->model('faculties_model');
+        //$this->lang->load('geral_lang');
     }
     
     public function index(){
